@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/welcome_to_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="41dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center_vertical"
+        android:text="@string/welcome_string"
+        android:textAppearance="@style/welcome_string_style" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:text="@string/app_name"
+        android:fontFamily="@font/lato_regular"
+        android:textAppearance="@style/welcome_string_style"
+        android:textColor="@color/green" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:text="APPLICATION"
+        android:fontFamily="@font/lato_regular"
+        android:textAppearance="@style/welcome_string_style" />
+
+    <ImageView
+        android:layout_width="305dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="31dp"
+        android:src="@drawable/money" />
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="306dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:cornerRadius="10dp"
+        android:text="@string/register"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/lato_regular"
+        android:backgroundTint="@color/green_dark"
+        android:textAppearance="@style/register"/>
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="306dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:cornerRadius="10dp"
+        android:text="@string/login"
+        android:layout_marginTop="11dp"
+        android:fontFamily="@font/lato_regular"
+        android:backgroundTint="@color/green_dark"
+        android:textAppearance="@style/register"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_with"
+        android:textAppearance="@style/login_with"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/lato_regular"
+        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="17dp">
+        <ImageView
+            android:id="@+id/login_with_google_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_google"/>
+        <ImageView
+            android:id="@+id/login_with_insta_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_insta_img"/>
+        <ImageView
+            android:id="@+id/login_with_fb_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_fb_img"/>
+    </LinearLayout>
+</LinearLayout>
