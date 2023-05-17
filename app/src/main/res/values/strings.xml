@@ -8,4 +8,12 @@ Login
     <string name="login_with">
 Login with
 </string>
+    <string name="hello_welcome_str">
+Hello, Welcome to
+</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_member">Already member?</string>
+    <string name="login_now">login now</string>
 </resources>
