@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MutualMind</string>
-    <string name="welcome_string">WELCOME TO </string>
     <string name="register">Register</string>
     <string name="login">
 Login
@@ -16,4 +15,8 @@ Hello, Welcome to
     <string name="confirm_password">Confirm Password</string>
     <string name="already_member">Already member?</string>
     <string name="login_now">login now</string>
+    <string name="hello_welcome_back">Hello, Welcome Back</string>
+    <string name="email">Email</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="not_member_yet">Not member yet?</string>
 </resources>
