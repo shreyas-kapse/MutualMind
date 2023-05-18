@@ -4,25 +4,40 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.mutualmind.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
+    lateinit var firebaseAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        firebaseAuth=FirebaseAuth.getInstance()
+        // loading xml data to variables
+        val loginbtn=binding.logLogBtn
+        val forgetpassbtn=binding.logForgetpassTxt
+        val registerbtn=binding.logJoinnowTxt
 
-        var login_btn=binding.logLogBtn
-        var forget_pass_btn=binding.logForgetpassTxt
-        var register_btn=binding.logJoinnowTxt
 
-        login_btn.setOnClickListener {
-//            firebase code
+        loginbtn.setOnClickListener {
+            val emailedt=binding.logEmailEdt.text.toString()
+            val passedt=binding.logPassEdt.text.toString()
+            if(emailedt.isNotEmpty()&&passedt.isNotEmpty()){
+                firebaseAuth.signInWithEmailAndPassword(emailedt,passedt).addOnCompleteListener {
+                    task->
+                    if(task.isSuccessful){
+                        if(firebaseAuth.currentUser?.isEmailVerified==true){
+//                            val intent=Intent(this,)
+                        }
+                    }
+                }
+            }
         }
-        forget_pass_btn.setOnClickListener {
+        forgetpassbtn.setOnClickListener {
 //          firebase code
         }
-        register_btn.setOnClickListener {
+        registerbtn.setOnClickListener {
             var intent = Intent(this, Register::class.java)
             startActivity(intent)
         }

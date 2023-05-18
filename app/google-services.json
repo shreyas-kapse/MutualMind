@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266611769581",
+    "project_id": "mutualmind-82a34",
+    "storage_bucket": "mutualmind-82a34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266611769581:android:303c75ee5a2bf1c7c24ce4",
+        "android_client_info": {
+          "package_name": "com.example.mutualmind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266611769581-32q9l3kqmo6vqlluee2tblj3efh7753c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiYGbFHDcUm0TV-t5s9fhfKT0wrr5tD3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266611769581-32q9l3kqmo6vqlluee2tblj3efh7753c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
