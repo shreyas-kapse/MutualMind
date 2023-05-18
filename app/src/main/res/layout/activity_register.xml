@@ -42,11 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/username">
+        android:hint="@string/email">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/regi_email_edtxt"/>
+            android:id="@+id/regi_email_edtxt"
+            android:maxLines="1"
+         />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="306dp"
@@ -57,7 +59,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/regi_pass_edtxt"/>
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:id="@+id/regi_pass_edtxt"
+           />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="306dp"
@@ -68,7 +73,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/regi_confirm_pass_edtxt"/>
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:id="@+id/regi_confirm_pass_edtxt"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

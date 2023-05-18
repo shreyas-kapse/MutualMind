@@ -19,4 +19,9 @@ Hello, Welcome to
     <string name="email">Email</string>
     <string name="forget_password">Forget Password?</string>
     <string name="not_member_yet">Not member yet?</string>
+    <string name="home">Home</string>
+    <string name="add_fund">Add Fund</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
