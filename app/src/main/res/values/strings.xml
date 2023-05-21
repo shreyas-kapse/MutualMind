@@ -22,6 +22,17 @@ Hello, Welcome to
     <string name="home">Home</string>
     <string name="add_fund">Add Fund</string>
     <string name="profile">Profile</string>
+    <string name="hi_user_">
+        Hi,Shreyas </string>
+    <string name="your_balance">
+        Here’s Your Balance
+    </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="investment">Investment</string>
+    <string name="returns">Returns</string>
+    <string name="top_gainer">
+Top Gainer
+</string>
+
 </resources>
