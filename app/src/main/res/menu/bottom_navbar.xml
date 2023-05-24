@@ -2,8 +2,8 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home" android:id="@+id/homepage" />
-    <item android:title="Add Fund" android:id="@+id/addFund"/>
-    <item android:title="Profile" android:id="@+id/profile"/>
+    <item android:title="Home" android:id="@+id/homepage" android:icon="@drawable/ic_home" android:iconTint="#AEFFA0"/>
+    <item android:title="Add Fund" android:id="@+id/addFund" android:icon="@drawable/ic_plus" android:iconTint="#AEFFA0"/>
+    <item android:title="Profile" android:id="@+id/profile" android:icon="@drawable/ic_profile" android:iconTint="#AEFFA0"/>
 
 </menu>

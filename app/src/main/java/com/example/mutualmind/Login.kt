@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import java.lang.Exception
 
 class Login : AppCompatActivity() {
+
     lateinit var binding: ActivityLoginBinding
     lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {

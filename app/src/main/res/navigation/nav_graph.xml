@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/addFund"
-        android:name="com.example.mutualmind.AddFund"
+        android:name="com.example.mutualmind.Fragments.AddFund"
         android:label="fragment_add_fund"
         tools:layout="@layout/fragment_add_fund" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.mutualmind.Profile"
+        android:name="com.example.mutualmind.Fragments.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/homepage"
-        android:name="com.example.mutualmind.Homepage"
+        android:name="com.example.mutualmind.Fragments.Homepage"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
