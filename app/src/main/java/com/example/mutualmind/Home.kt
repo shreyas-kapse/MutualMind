@@ -13,13 +13,16 @@ class Home : AppCompatActivity() {
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val hostFragment=supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
-        navController=hostFragment.navController
-        val bottom_nav=binding.bottomNavigationView
-        setupWithNavController(bottom_nav,navController)
+        val hostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        navController = hostFragment.navController
+        val bottom_nav = binding.bottomNavigationView
+        setupWithNavController(bottom_nav, navController)
 
     }
+
+
 }
