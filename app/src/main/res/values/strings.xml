@@ -34,5 +34,10 @@ Hello, Welcome to
     <string name="top_gainer">
 Top Gainer
 </string>
+    <string name="edit_profile_change_username"><![CDATA[Edit profile,change username >]]></string>
+    <string name="invest_with_us">Invest With Us</string>
+    <string name="my_transactions">My Transactions</string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About Us</string>
 
 </resources>
