@@ -1,14 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.Profile">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile" />
-
-</FrameLayout>
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/rectangle_3"
+            android:layout_width="421dp"
+            android:layout_height="248dp"
+            android:layout_marginTop="-32dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/register_rectangle" />
+        <View
+            android:id="@+id/ellipse_1"
+            android:layout_width="112dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/eclipes"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_avatar"
+            android:layout_marginTop="55dp"
+            android:layout_marginStart="54dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shreyas Kapse"
+                android:id="@+id/pro_username"
+                android:layout_marginTop="60dp"
+                android:fontFamily="@font/lato_regular"
+                android:textAppearance="@style/hello_welcome"
+                android:textColor="@color/white"
+                android:layout_marginStart="160dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_profile_change_username"
+                android:layout_marginTop="7dp"
+                android:textAppearance="@style/edit_profi"
+                android:layout_marginStart="160dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invest_with_us"
+                android:textAppearance="@style/edit_profil"
+                android:layout_marginStart="165dp"
+                android:layout_marginTop="18dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="47dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/customeborder"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_acc"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/my_transactions"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            android:textAppearance="@style/hello_welcome"/>
+        <View
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow"
+            android:layout_marginTop="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="19dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/customeborder"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/settings"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            android:textAppearance="@style/hello_welcome"/>
+        <View
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow"
+            android:layout_marginTop="15dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="19dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/customeborder"
+        android:padding="10dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_about"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/about_us"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato_regular"
+            android:textAppearance="@style/hello_welcome"/>
+        <View
+            android:layout_width="36dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow"
+            android:layout_marginTop="15dp" />
+    </LinearLayout>
+</LinearLayout>
