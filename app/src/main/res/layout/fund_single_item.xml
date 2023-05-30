@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardBackgroundColor="#AEFFA0"
+    android:id="@+id/fun_card"
     android:layout_margin="10dp"
     app:contentPadding="20dp">
     <LinearLayout
