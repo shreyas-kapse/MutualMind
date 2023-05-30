@@ -1,6 +1,7 @@
 package com.example.mutualmind.Fragments
 
 import VolleySingleTon
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,13 +19,15 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.mutualmind.Adapter.FundInfoAdapter
+import com.example.mutualmind.FundInfo
 import com.example.mutualmind.Model.BasicFundInfo
 import com.example.mutualmind.R
+import com.example.mutualmind.SelectInterface
 import com.example.mutualmind.databinding.FragmentAddFundBinding
 import org.json.JSONArray
 import java.util.Locale
 
-class AddFund : Fragment() {
+class AddFund : Fragment(),SelectInterface {
     private lateinit var binding: FragmentAddFundBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FundInfoAdapter
@@ -67,7 +70,7 @@ class AddFund : Fragment() {
             }
 
         })
-        adapter = FundInfoAdapter(tempdata)
+        adapter = FundInfoAdapter(tempdata,this)
         recyclerView.adapter = adapter
         return binding.root
     }
@@ -94,5 +97,12 @@ class AddFund : Fragment() {
         })
         VolleySingleTon.getInstance(requireActivity().applicationContext)
             .addToRequestQueue(jsonObject)
+    }
+
+    override fun itemClicked(item: BasicFundInfo) {
+        val intent=Intent(context,FundInfo::class.java)
+        intent.putExtra("fundName",item.schemename)
+        intent.putExtra("fundCode",item.schomecode)
+        startActivity(intent)
     }
 }
