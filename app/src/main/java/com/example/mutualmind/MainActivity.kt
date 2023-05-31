@@ -18,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth=FirebaseAuth.getInstance()
-        var register_btn=binding.registerBtn
-        var login_btn=binding.loginBtn
+        val register_btn=binding.registerBtn
+        val login_btn=binding.loginBtn
 
         register_btn.setOnClickListener {
-            var intent = Intent(this, Register::class.java)
+            val intent = Intent(this, Register::class.java)
             startActivity(intent)
         }
         login_btn.setOnClickListener {
-            var intent = Intent(this, Login::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
         val user=firebaseAuth.currentUser

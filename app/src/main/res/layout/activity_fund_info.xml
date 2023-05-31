@@ -94,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
+                    android:id="@+id/fun_fund_house"
                     tools:text="Axis Mutual fund" />
             </LinearLayout>
 
@@ -114,6 +115,7 @@
                     android:layout_height="17dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
+                    android:id="@+id/fun_category"
                     tools:text="Debt Scheme - Overnight Fund" />
             </LinearLayout>
             <LinearLayout
@@ -154,6 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
+                    android:id="@+id/fun_nav"
                     android:text="1231.10" />
             </LinearLayout>
             <TextView

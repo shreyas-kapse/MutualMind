@@ -92,9 +92,9 @@ class AddFund : Fragment(),SelectInterface {
             }
             tempdata.addAll(data)
             recyclerView.adapter!!.notifyDataSetChanged()
-        }, { error ->
+        }) { error ->
             Log.d("res", "$error")
-        })
+        }
         VolleySingleTon.getInstance(requireActivity().applicationContext)
             .addToRequestQueue(jsonObject)
     }
