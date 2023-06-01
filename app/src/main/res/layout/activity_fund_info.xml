@@ -15,7 +15,7 @@
             android:id="@+id/fun_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="24dp"
             android:contentDescription="@string/back"
             android:src="@drawable/back_btn" />
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/nav"
-            android:inputType="numberDecimal"></com.google.android.material.textfield.TextInputEditText>
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
