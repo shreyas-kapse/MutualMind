@@ -10,10 +10,10 @@
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginHorizontal="20dp"
         android:focusable="true"
-        android:paddingStart="10dp"
+        app:queryHint="Search"
         android:id="@+id/searchview"
     />
     <ProgressBar
