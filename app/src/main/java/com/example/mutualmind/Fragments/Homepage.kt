@@ -2,6 +2,7 @@ package com.example.mutualmind.Fragments
 
 import VolleySingleTon
 import android.content.Context
+import android.graphics.Color
 import kotlinx.coroutines.launch
 import android.os.Bundle
 import android.util.Log
@@ -101,44 +102,45 @@ class Homepage : Fragment() {
 
     }
 
-    private suspend fun getDataFromDb(): ArrayList<FirebaseDataModel> = withContext(Dispatchers.IO){
-        return@withContext suspendCoroutine { continuation ->
-            val database = FirebaseDatabase.getInstance()
-                .getReference(firebaseAuth.currentUser?.uid.toString())
+    private suspend fun getDataFromDb(): ArrayList<FirebaseDataModel> =
+        withContext(Dispatchers.IO) {
+            return@withContext suspendCoroutine { continuation ->
+                val database = FirebaseDatabase.getInstance()
+                    .getReference(firebaseAuth.currentUser?.uid.toString())
 
-            val data = ArrayList<FirebaseDataModel>()
+                val data = ArrayList<FirebaseDataModel>()
 
-            val getData = object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (i in snapshot.children) {
-                        val fundName = i.child("fundName").value
-                        val fundCode = i.child("fundCode").value
-                        val fundPrice = i.child("fundPrice").value
-                        val investmentAmount = i.child("investmentAmount").value
-                        val units = i.child("units").value
+                val getData = object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (i in snapshot.children) {
+                            val fundName = i.child("fundName").value
+                            val fundCode = i.child("fundCode").value
+                            val fundPrice = i.child("fundPrice").value
+                            val investmentAmount = i.child("investmentAmount").value
+                            val units = i.child("units").value
 
-                        val d = FirebaseDataModel(
-                            fundPrice.toString(),
-                            investmentAmount.toString(),
-                            units.toString(),
-                            fundName.toString(),
-                            fundCode.toString()
-                        )
-                        data.add(d)
+                            val d = FirebaseDataModel(
+                                fundPrice.toString(),
+                                investmentAmount.toString(),
+                                units.toString(),
+                                fundName.toString(),
+                                fundCode.toString()
+                            )
+                            data.add(d)
+                        }
+
+                        continuation.resume(data)
                     }
 
-                    continuation.resume(data)
+                    override fun onCancelled(error: DatabaseError) {
+                        continuation.resumeWithException(error.toException())
+                    }
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    continuation.resumeWithException(error.toException())
-                }
+                database.addValueEventListener(getData)
             }
 
-            database.addValueEventListener(getData)
         }
-
-    }
 
 
     private suspend fun updateValues(data: ArrayList<FirebaseDataModel>) {
@@ -154,54 +156,88 @@ class Homepage : Fragment() {
             Log.d("RES", "Total Returns: $returns")
 
             val returnsTxt = view?.findViewById<TextView>(R.id.hom_total_returns)
+//            if (returnsTxt != null) {
+//                if (returns + totalInvestment > totalInvestment) {
+//                    returnsTxt.post {
+//                        returnsTxt.text = returns.toString()
+//                        returnsTxt.setTextColor(Color.parseColor("#39FF14"))
+//                    }
+//                } else {
+//                    returnsTxt.post {
+//
+//
+//                        returnsTxt.text = returns.toString()
+//                        returnsTxt.setTextColor(Color.parseColor("#FF0000"))
+//                    }
+//                }
+//            }
+//            val totalInvestmentTxt = view?.findViewById<TextView>(R.id.hom_total_investment)
+//            if (totalInvestmentTxt != null) {
+//                totalInvestmentTxt.text = totalInvestment.toString() + "0"
+//            }
             if (returnsTxt != null) {
-                returnsTxt.text = returns.toString()
+                val formated_values= String.format("%2f",returns)
+                if (returns + totalInvestment > totalInvestment) {
+                    activity?.runOnUiThread {
+                        returnsTxt.text = formated_values
+                        returnsTxt.setTextColor(Color.parseColor("#39FF14"))
+                    }
+                } else {
+                    activity?.runOnUiThread {
+                        returnsTxt.text = formated_values
+                        returnsTxt.setTextColor(Color.parseColor("#FF0000"))
+                    }
+                }
             }
+
             val totalInvestmentTxt = view?.findViewById<TextView>(R.id.hom_total_investment)
             if (totalInvestmentTxt != null) {
-                totalInvestmentTxt.text = totalInvestment.toString() + "0"
+                activity?.runOnUiThread {
+                    totalInvestmentTxt.text = totalInvestment.toString() + "0"
+                }
             }
 
 //        Log.d("RES", "Total investment:${returns.toString()} ")
         }
     }
 
-    private suspend fun findCurrentPrice(fundCode: String, context: Context): Double = withContext(Dispatchers.IO) {
-        return@withContext suspendCoroutine { continuation ->
-            var currentNav: Double = 0.0
+    private suspend fun findCurrentPrice(fundCode: String, context: Context): Double =
+        withContext(Dispatchers.IO) {
+            return@withContext suspendCoroutine { continuation ->
+                var currentNav: Double = 0.0
 
-            val url = "https://api.mfapi.in/mf/$fundCode"
-            val jsonObject =
-                JsonObjectRequest(
-                    com.android.volley.Request.Method.GET,
-                    url,
-                    null,
-                    Response.Listener {
-                        val priceData = ArrayList<PriceData>()
-                        val jsonArray = it.getJSONArray("data")
-                        for (i in 0 until 1) {
-                            val jsonObject = jsonArray.getJSONObject(i)
-                            val date = jsonObject.getString("date")
-                            val nav = jsonObject.getString("nav")
-                            val info = PriceData(date, nav)
-                            priceData.add(info)
-                        }
-                        currentNav = priceData.get(0).price.toDouble()
+                val url = "https://api.mfapi.in/mf/$fundCode"
+                val jsonObject =
+                    JsonObjectRequest(
+                        com.android.volley.Request.Method.GET,
+                        url,
+                        null,
+                        Response.Listener {
+                            val priceData = ArrayList<PriceData>()
+                            val jsonArray = it.getJSONArray("data")
+                            for (i in 0 until 1) {
+                                val jsonObject = jsonArray.getJSONObject(i)
+                                val date = jsonObject.getString("date")
+                                val nav = jsonObject.getString("nav")
+                                val info = PriceData(date, nav)
+                                priceData.add(info)
+                            }
+                            currentNav = priceData.get(0).price.toDouble()
 
-                        Log.d("REST RES", " $currentNav")
-                        continuation.resume(currentNav)
-                    }) { error ->
-                    continuation.resumeWithException(error)
+                            Log.d("REST RES", " $currentNav")
+                            continuation.resume(currentNav)
+                        }) { error ->
+                        continuation.resumeWithException(error)
 
-                }
-            VolleySingleTon.getInstance(context)
-                .addToRequestQueue(jsonObject)
+                    }
+                VolleySingleTon.getInstance(context)
+                    .addToRequestQueue(jsonObject)
 
 //        Log.d("REST RES", " $currentNav")
 
-        }
+            }
 
-    }
+        }
 }
 
 
