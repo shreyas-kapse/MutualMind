@@ -87,7 +87,7 @@
            android:layout_weight="1"
            android:textAlignment="textStart"
            android:id="@+id/hom_total_investment"
-           android:text="14,25,795.00"/>
+           android:text="00"/>
        <TextView
            android:layout_width="0dp"
            android:textColor="@color/white"
@@ -95,7 +95,7 @@
            android:layout_weight="0.7"
            android:textAlignment="center"
            android:id="@+id/hom_total_returns"
-           android:text="4,54,770.00"/>
+           android:text="00"/>
        </LinearLayout>
    </RelativeLayout>
     <TextView
