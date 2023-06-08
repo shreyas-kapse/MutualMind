@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AlertDialog {
+
     fun showLoadingDialog(context: Context): Dialog {
         val dialog = Dialog(context)
 

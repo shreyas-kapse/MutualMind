@@ -55,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/password">
+        android:hint="@string/password"
+        app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,7 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/confirm_password">
+        android:hint="@string/confirm_password"
+        app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

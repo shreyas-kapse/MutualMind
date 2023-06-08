@@ -54,7 +54,7 @@ class Register : AppCompatActivity() {
                 firebaseAuth.createUserWithEmailAndPassword(email_edt, pass_edt)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            runOnUiThread{
+                            runOnUiThread {
                                 if (loadingDialog != null) {
                                     alert.dismissLoadingDialog(loadingDialog)
                                 }
@@ -85,6 +85,11 @@ class Register : AppCompatActivity() {
                                 Toast.makeText(
                                     this, "Password is too weak.", Toast.LENGTH_SHORT
                                 ).show()
+                                runOnUiThread {
+                                    if (loadingDialog != null && loadingDialog.isShowing) {
+                                        alert.dismissLoadingDialog(loadingDialog)
+                                    }
+                                }
                             } catch (it: Exception) {
                                 Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                             }
@@ -93,9 +98,19 @@ class Register : AppCompatActivity() {
                     }
             } else {
                 Toast.makeText(this, "Password do not match.", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    if (loadingDialog != null) {
+                        alert.dismissLoadingDialog(loadingDialog)
+                    }
+                }
             }
         } else {
             Toast.makeText(this, "Empty field are not allowed.", Toast.LENGTH_SHORT).show()
+            runOnUiThread {
+                if (loadingDialog != null) {
+                    alert.dismissLoadingDialog(loadingDialog)
+                }
+            }
         }
     }
 }
