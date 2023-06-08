@@ -77,7 +77,7 @@ class FundInfoAdapter(
 
         fun bind(fundInfo: BasicFundInfo, listener: SelectInterface) {
             fundName.text = fundInfo.schemename
-            fundCode.text = fundInfo.schomecode
+            fundCode.text = fundInfo.schemecode
 
             itemView.setOnClickListener {
                 listener.itemClicked(fundInfo)
