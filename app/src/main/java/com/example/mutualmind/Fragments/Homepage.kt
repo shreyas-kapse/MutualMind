@@ -137,7 +137,7 @@ class Homepage : Fragment() {
                     }
                 }
 
-                database.addValueEventListener(getData)
+                database.addListenerForSingleValueEvent(getData)
             }
 
         }

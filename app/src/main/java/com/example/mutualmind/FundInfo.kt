@@ -1,17 +1,14 @@
 package com.example.mutualmind
 
 import VolleySingleTon
-import android.R
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.example.mutualmind.Fragments.AddFund
 import com.example.mutualmind.Model.FirebaseDataModel
 import com.example.mutualmind.Model.FirebaseUserDataModel
 import com.example.mutualmind.Model.FundDetails
@@ -19,6 +16,9 @@ import com.example.mutualmind.Model.PriceData
 import com.example.mutualmind.databinding.ActivityFundInfoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class FundInfo : AppCompatActivity() {
@@ -37,7 +37,10 @@ class FundInfo : AppCompatActivity() {
         fundCode = intent.getStringExtra("fundCode")
 
         binding.funFundName.text = fundName
-        fetchFundDetails(fundCode)
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+            fetchFundDetails(fundCode)
+        }
 
 
         binding.funAddToFolioBtn.setOnClickListener {
@@ -46,17 +49,42 @@ class FundInfo : AppCompatActivity() {
             val NAV = nav.toLong()
             val investment = amount.toLong()
             val units = investment / NAV.toInt()
-            addDataToDatabase(
-                nav, amount, units.toString(), fundCode.toString(),
-                fundName.toString()
-            )
+            val coScope = CoroutineScope(Dispatchers.IO)
+            coScope.launch {
+                updateUi(
+                    nav, amount, units.toString(), fundCode.toString(),
+                    fundName.toString()
+                )
+            }
+
 
             Log.d("user", "onCreate:$units ")
         }
 
     }
 
-    private fun addDataToDatabase(
+    private suspend fun updateUi(
+        nav: String,
+        amount: String,
+        units: String,
+        fundCode: String,
+        fundName: String
+    ) {
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+            addDataToDatabase(
+                nav,
+                amount,
+                units,
+                fundCode,
+                fundName
+            )
+        }
+
+    }
+
+
+    private suspend fun addDataToDatabase(
         nav: String,
         amount: String,
         units: String,
@@ -78,7 +106,6 @@ class FundInfo : AppCompatActivity() {
                 binding.funNavEdt.text = null
                 binding.funAmountEdt.text = null
             }
-
     }
 
     private fun fetchFundDetails(fundCode: String?) {
@@ -133,13 +160,13 @@ class FundInfo : AppCompatActivity() {
         for (i in 0 until 365) {
             oneYear.add(priceData.get(i))
         }
-        val oneDayBtn=binding.oneDay
-        val oneWeekBtn =binding.oneWeek
+        val oneDayBtn = binding.oneDay
+        val oneWeekBtn = binding.oneWeek
         val oneMonthBtn = binding.oneMonth
         val threeMonthsBtn = binding.threeMonths
-        val sixMonthsBtn =binding.sixMonths
-        val oneYearBtn =binding.oneYear
-        setTrendColor(oneWeek.get(1).price.toDouble()>oneWeek.get(0).price.toDouble(),oneDayBtn)
+        val sixMonthsBtn = binding.sixMonths
+        val oneYearBtn = binding.oneYear
+        setTrendColor(oneWeek.get(1).price.toDouble() > oneWeek.get(0).price.toDouble(), oneDayBtn)
         setTrendColor(
             oneWeek.get(oneWeek.size - 1).price.toDouble() > oneWeek.get(0).price.toDouble(),
             oneWeekBtn
