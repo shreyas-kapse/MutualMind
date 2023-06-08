@@ -1,5 +1,6 @@
 package com.example.mutualmind
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,19 +17,24 @@ import java.lang.Exception
 class Register : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var alert: AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
-
+        alert = AlertDialog()
         //loading xml values to variable
         val registerbtn = binding.regiRegiBtn
         val loginnowbtn = binding.regiLoginNowTxt
 
-        val coroutineScope= CoroutineScope(Dispatchers.IO)
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        var loadingDialog: Dialog? = null
         registerbtn.setOnClickListener {
-            coroutineScope.launch { registerUserWithFirebase() }
+            coroutineScope.launch {
+                runOnUiThread { loadingDialog = alert.showLoadingDialog(this@Register) }
+                registerUserWithFirebase(loadingDialog)
+            }
         }
         //go to login page
         loginnowbtn.setOnClickListener {
@@ -37,7 +43,7 @@ class Register : AppCompatActivity() {
         }
     }
 
-    private suspend fun registerUserWithFirebase() {
+    private suspend fun registerUserWithFirebase(loadingDialog: Dialog?) {
         val email_edt = binding.regiEmailEdtxt.text.toString()
         val pass_edt = binding.regiPassEdtxt.text.toString()
         val confirmpass_edt = binding.regiConfirmPassEdtxt.text.toString()
@@ -48,6 +54,11 @@ class Register : AppCompatActivity() {
                 firebaseAuth.createUserWithEmailAndPassword(email_edt, pass_edt)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
+                            runOnUiThread{
+                                if (loadingDialog != null) {
+                                    alert.dismissLoadingDialog(loadingDialog)
+                                }
+                            }
                             firebaseAuth.currentUser?.sendEmailVerification()
                                 ?.addOnCompleteListener {
                                     binding.regiEmailEdtxt.text = null
