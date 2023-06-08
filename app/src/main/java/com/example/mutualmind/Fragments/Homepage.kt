@@ -176,7 +176,7 @@ class Homepage : Fragment() {
 //                totalInvestmentTxt.text = totalInvestment.toString() + "0"
 //            }
             if (returnsTxt != null) {
-                val formated_values= String.format("%2f",returns)
+                val formated_values= String.format("%.2f",returns)
                 if (returns + totalInvestment > totalInvestment) {
                     activity?.runOnUiThread {
                         returnsTxt.text = formated_values
