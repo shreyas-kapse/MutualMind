@@ -2,11 +2,8 @@ package com.example.mutualmind
 
 import android.app.Dialog
 import android.content.Context
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class AlertDialog {
+class CustomAlertDialog {
 
     fun showLoadingDialog(context: Context): Dialog {
         val dialog = Dialog(context)

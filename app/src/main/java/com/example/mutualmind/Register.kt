@@ -17,24 +17,23 @@ import java.lang.Exception
 class Register : AppCompatActivity() {
     lateinit var binding: ActivityRegisterBinding
     lateinit var firebaseAuth: FirebaseAuth
-    lateinit var alert: AlertDialog
+    lateinit var alert: CustomAlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
-        alert = AlertDialog()
+        alert = CustomAlertDialog()
         //loading xml values to variable
         val registerbtn = binding.regiRegiBtn
         val loginnowbtn = binding.regiLoginNowTxt
 
-        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
         var loadingDialog: Dialog? = null
         registerbtn.setOnClickListener {
-            coroutineScope.launch {
-                runOnUiThread { loadingDialog = alert.showLoadingDialog(this@Register) }
+
+                loadingDialog = alert.showLoadingDialog(this@Register)
                 registerUserWithFirebase(loadingDialog)
-            }
         }
         //go to login page
         loginnowbtn.setOnClickListener {
@@ -43,7 +42,7 @@ class Register : AppCompatActivity() {
         }
     }
 
-    private suspend fun registerUserWithFirebase(loadingDialog: Dialog?) {
+    private  fun registerUserWithFirebase(loadingDialog: Dialog?) {
         val email_edt = binding.regiEmailEdtxt.text.toString()
         val pass_edt = binding.regiPassEdtxt.text.toString()
         val confirmpass_edt = binding.regiConfirmPassEdtxt.text.toString()
@@ -54,11 +53,9 @@ class Register : AppCompatActivity() {
                 firebaseAuth.createUserWithEmailAndPassword(email_edt, pass_edt)
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            runOnUiThread {
                                 if (loadingDialog != null) {
                                     alert.dismissLoadingDialog(loadingDialog)
                                 }
-                            }
                             firebaseAuth.currentUser?.sendEmailVerification()
                                 ?.addOnCompleteListener {
                                     binding.regiEmailEdtxt.text = null
@@ -82,16 +79,21 @@ class Register : AppCompatActivity() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } catch (it: FirebaseAuthWeakPasswordException) {
+
+//                                    if (loadingDialog != null && loadingDialog.isShowing) {
+//                                        alert.dismissLoadingDialog(loadingDialog)
+//                                    }
+
                                 Toast.makeText(
                                     this, "Password is too weak.", Toast.LENGTH_SHORT
                                 ).show()
-                                runOnUiThread {
+                            } catch (it: Exception) {
+                                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                            }finally {
+
                                     if (loadingDialog != null && loadingDialog.isShowing) {
                                         alert.dismissLoadingDialog(loadingDialog)
                                     }
-                                }
-                            } catch (it: Exception) {
-                                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                             }
 
                         }

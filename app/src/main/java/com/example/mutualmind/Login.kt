@@ -20,27 +20,24 @@ class Login : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     lateinit var firebaseAuth: FirebaseAuth
-    lateinit var alert: AlertDialog
+    lateinit var alert: CustomAlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
-        alert = AlertDialog()
+        alert = CustomAlertDialog()
 
         // loading xml data to variables
         val loginbtn = binding.logLogBtn
         val forgetpassbtn = binding.logForgetpassTxt
         val registerbtn = binding.logJoinnowTxt
 
-        val coroutineScope = CoroutineScope(Dispatchers.IO)
         var loadingDialog: Dialog? = null
         loginbtn.setOnClickListener {
-            coroutineScope.launch {
-                runOnUiThread { loadingDialog = alert.showLoadingDialog(this@Login) }
+             loadingDialog = alert.showLoadingDialog(this@Login)
                 loginUserWithFirebase(loadingDialog)
 
-            }
         }
         forgetpassbtn.setOnClickListener {
 //          firebase code
@@ -51,7 +48,7 @@ class Login : AppCompatActivity() {
         }
     }
 
-    suspend fun loginUserWithFirebase(loadingDialog: Dialog?) {
+     fun loginUserWithFirebase(loadingDialog: Dialog?) {
         val emailedt = binding.logEmailEdt.text.toString()
         val passedt = binding.logPassEdt.text.toString()
         if (emailedt.isNotEmpty() && passedt.isNotEmpty()) {
@@ -59,7 +56,7 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         if (loadingDialog != null) {
-                            runOnUiThread { alert.dismissLoadingDialog(loadingDialog!!) }
+                            alert.dismissLoadingDialog(loadingDialog)
                         }
                         if (firebaseAuth.currentUser?.isEmailVerified == true) {
                             val intent = Intent(this@Login, Home::class.java)
@@ -105,6 +102,9 @@ class Login : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
+                        }
+                        finally {
+                            alert.dismissLoadingDialog(loadingDialog!!)
                         }
                     }
                 }
