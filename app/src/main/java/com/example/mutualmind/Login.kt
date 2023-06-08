@@ -1,9 +1,9 @@
 package com.example.mutualmind
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.mutualmind.databinding.ActivityLoginBinding
 import com.google.firebase.FirebaseNetworkException
@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -21,20 +20,26 @@ class Login : AppCompatActivity() {
 
     lateinit var binding: ActivityLoginBinding
     lateinit var firebaseAuth: FirebaseAuth
+    lateinit var alert: AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
+        alert = AlertDialog()
+
         // loading xml data to variables
         val loginbtn = binding.logLogBtn
         val forgetpassbtn = binding.logForgetpassTxt
         val registerbtn = binding.logJoinnowTxt
 
         val coroutineScope = CoroutineScope(Dispatchers.IO)
+        var loadingDialog: Dialog? = null
         loginbtn.setOnClickListener {
             coroutineScope.launch {
-                loginUserWithFirebase()
+                runOnUiThread { loadingDialog = alert.showLoadingDialog(this@Login) }
+                loginUserWithFirebase(loadingDialog)
+
             }
         }
         forgetpassbtn.setOnClickListener {
@@ -46,13 +51,16 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private suspend fun loginUserWithFirebase() {
+    suspend fun loginUserWithFirebase(loadingDialog: Dialog?) {
         val emailedt = binding.logEmailEdt.text.toString()
         val passedt = binding.logPassEdt.text.toString()
         if (emailedt.isNotEmpty() && passedt.isNotEmpty()) {
             firebaseAuth.signInWithEmailAndPassword(emailedt, passedt)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        if (loadingDialog != null) {
+                            runOnUiThread { alert.dismissLoadingDialog(loadingDialog!!) }
+                        }
                         if (firebaseAuth.currentUser?.isEmailVerified == true) {
                             val intent = Intent(this@Login, Home::class.java)
                             startActivity(intent)
