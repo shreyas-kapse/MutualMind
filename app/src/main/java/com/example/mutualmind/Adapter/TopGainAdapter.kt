@@ -28,4 +28,9 @@ class TopGainAdapter(private val context:Context,val list:ArrayList<TopGainModel
         returns.text=list[position].returns.toString()
         return view
     }
+    fun setData(dataList: List<TopGainModel>) {
+        clear()
+        addAll(dataList)
+        notifyDataSetChanged()
+    }
 }

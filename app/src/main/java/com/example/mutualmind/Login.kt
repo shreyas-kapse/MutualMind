@@ -35,9 +35,8 @@ class Login : AppCompatActivity() {
 
         var loadingDialog: Dialog? = null
         loginbtn.setOnClickListener {
-             loadingDialog = alert.showLoadingDialog(this@Login)
-                loginUserWithFirebase(loadingDialog)
-
+            loadingDialog = alert.showLoadingDialog(this@Login)
+            loginUserWithFirebase(loadingDialog)
         }
         forgetpassbtn.setOnClickListener {
 //          firebase code
@@ -48,7 +47,7 @@ class Login : AppCompatActivity() {
         }
     }
 
-     fun loginUserWithFirebase(loadingDialog: Dialog?) {
+    fun loginUserWithFirebase(loadingDialog: Dialog?) {
         val emailedt = binding.logEmailEdt.text.toString()
         val passedt = binding.logPassEdt.text.toString()
         if (emailedt.isNotEmpty() && passedt.isNotEmpty()) {
@@ -102,15 +101,16 @@ class Login : AppCompatActivity() {
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
-                        }
-                        finally {
+                        } finally {
                             alert.dismissLoadingDialog(loadingDialog!!)
                         }
                     }
                 }
         } else {
+            alert.dismissLoadingDialog(loadingDialog!!)
             Toast.makeText(this@Login, "Empty fields are not allowed", Toast.LENGTH_SHORT)
                 .show()
+
         }
     }
 }

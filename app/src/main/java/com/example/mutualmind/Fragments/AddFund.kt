@@ -1,4 +1,4 @@
-package com.example.mutualmind.Fragments
+package com.example.mutualmind.fragments
 
 import VolleySingleTon
 import android.content.Intent
@@ -8,20 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
 import com.example.mutualmind.Adapter.FundInfoAdapter
 import com.example.mutualmind.FundInfo
 import com.example.mutualmind.Model.BasicFundInfo
-import com.example.mutualmind.R
 import com.example.mutualmind.SelectInterface
 import com.example.mutualmind.databinding.FragmentAddFundBinding
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.example.mutualmind.Fragments
+package com.example.mutualmind.fragments
 
 import VolleySingleTon
 import android.content.Context
@@ -14,10 +14,10 @@ import android.widget.ListView
 import android.widget.TextView
 import com.android.volley.Request
 
-import com.android.volley.Request.Method
-import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.example.mutualmind.Adapter.TopGainAdapter
+import com.example.mutualmind.Model.BasicFundInfo
 import com.example.mutualmind.Model.FirebaseDataModel
 import com.example.mutualmind.Model.PriceData
 import com.example.mutualmind.Model.TopGainModel
@@ -29,64 +29,184 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
+import org.json.JSONArray
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-import kotlin.system.measureNanoTime
 
 class Homepage : Fragment() {
     lateinit var firebaseAuth: FirebaseAuth
+    private var list = ArrayList<TopGainModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
-        val list = ArrayList<TopGainModel>()
+
         list.add(
             TopGainModel(
                 true,
                 "Aditya Birla Sun Life Income Fund - Growth - Regular Plan",
-                0.10
+                "10201",
+                0.9,
+                0.10,
+                0.1
             )
         )
         list.add(
             TopGainModel(
                 false,
                 "shreyas Birla Sun Life Income Fund - Growth - Regular Plan",
-                0.60
-            )
-        )
-        list.add(
-            TopGainModel(
-                true,
-                "test Birla Sun Life Income Fund - Growth - Regular Plan",
-                0.40
-            )
-        )
-        list.add(
-            TopGainModel(
-                true,
-                "android Birla Sun Life Income Fund - Growth - Regular Plan",
-                0.20
+                "121242",
+                0.10,
+                0.10,
+                0.1
             )
         )
         firebaseAuth = FirebaseAuth.getInstance()
-        val listview = view.findViewById<ListView>(R.id.listview)
-        listview.adapter = TopGainAdapter(requireActivity(), list)
-        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        val adapter = TopGainAdapter(requireActivity(), list)
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
-            val data = uiUpdate()
-//            Log.d("firebase data ", "data from firebase i got this$data")
+          fetchFunds(requireContext())
+
+            val listview = view.findViewById<ListView>(R.id.listview)
+//            list.clear()
+//            list.addAll(fundDataList)
+//            adapter.notifyDataSetChanged()
+            listview.adapter = adapter
+            uiUpdate()
 
         }
+
+
         return view
     }
+
+
+//    private fun fetchFunds(context: Context) {
+//        val basicFundData = ArrayList<BasicFundInfo>()
+//        val url = "https://api.mfapi.in/mf"
+//        val jsonObject = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+//            val jsonArray = JSONArray(response.toString())
+//            for (i in 0 until jsonArray.length()) {
+//                val jsonObj = jsonArray.getJSONObject(i)
+//                val schemeName = jsonObj.getString("schemeName")
+//                val schemeCode = jsonObj.getString("schemeCode")
+//                val fund = BasicFundInfo(schemeName, schemeCode)
+//                basicFundData.add(fund)
+//            }
+//            val fundDataList = ArrayList<TopGainModel>()
+//            val deferred = GlobalScope.async(Dispatchers.IO) {
+//                for (i in 0 until fundDataList.size) {
+//                    val (currentRs, preNav) =
+//                        findCurrentPrice(basicFundData[i].schemecode, context)
+//                    val fundData = TopGainModel(
+//                        true,
+//                        basicFundData[i].schemename,
+//                        basicFundData[i].schemecode,
+//                        currentRs,
+//                        preNav,
+//                        0.0
+//                    )
+//                    fundDataList.add(fundData)
+//                }
+//                fundDataList
+//            }
+//            GlobalScope.launch(Dispatchers.Main) {
+//                val result = deferred.await()
+//                topGainnerNLossers(result)
+//            }
+//        }, { error ->
+//            Log.d("Fetch Funds res", "fetchFunds: $error")
+//        })
+//        VolleySingleTon.getInstance(context)
+//            .addToRequestQueue(jsonObject)
+//
+//    }
+private suspend fun fetchFunds(context: Context)= coroutineScope {
+    val basicFundData = ArrayList<BasicFundInfo>()
+    val fundDataList = ArrayList<TopGainModel>()
+
+    val url = "https://api.mfapi.in/mf"
+    val jsonObject = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+        val jsonArray = JSONArray(response.toString())
+        for (i in 0 until jsonArray.length()) {
+            val jsonObj = jsonArray.getJSONObject(i)
+            val schemeName = jsonObj.getString("schemeName")
+            val schemeCode = jsonObj.getString("schemeCode")
+            val fund = BasicFundInfo(schemeName, schemeCode)
+            basicFundData.add(fund)
+        }
+
+        GlobalScope.launch(Dispatchers.IO) {
+            for (i in 0 until 100) {
+                val (currentRs, preNav) = withContext(Dispatchers.IO) {
+                    findCurrentPrice(basicFundData[i].schemecode, context)
+                }
+                val fundData = TopGainModel(
+                    true,
+                    basicFundData[i].schemename,
+                    basicFundData[i].schemecode,
+                    currentRs,
+                    preNav,
+                    0.0
+                )
+                fundDataList.add(fundData)
+            }
+            withContext(Dispatchers.Main) {
+                topGainnerNLossers(fundDataList)
+            }
+        }
+    }, { error ->
+        Log.d("Fetch Funds res", "fetchFunds: $error")
+    })
+
+    VolleySingleTon.getInstance(context).addToRequestQueue(jsonObject)
+}
+
+    private fun topGainnerNLossers(fundDataList: ArrayList<TopGainModel>) {
+        Log.d("Fetch Funds res", "fetchFunds: $fundDataList")
+        val numGainList = 5
+        val numLossList = 5
+        val topGainersList =
+            fundDataList.sortedByDescending { it.currentNav - it.prevNav }.take(numGainList)
+        val topLosserList = fundDataList.sortedBy { it.currentNav - it.prevNav }.take(numLossList)
+        topGainersList.forEach {
+            it.flag = false
+            Log.d(
+                "Fetch Funds res",
+                "gainers :prev nav is  ${it.prevNav} and current nav is ${it.currentNav}"
+            )
+
+        }
+        topLosserList.forEach {
+            it.flag=true
+            Log.d(
+                "Fetch Funds res",
+                "loosers :prev nav is  ${it.prevNav} and current nav is ${it.currentNav}"
+            )
+        }
+        activity?.runOnUiThread {
+            list.clear()
+            list.addAll(topGainersList)
+            val adapter = TopGainAdapter(requireActivity(), list)
+            val listView = view?.findViewById<ListView>(R.id.listview)
+            listView?.adapter = adapter
+        }
+
+        Log.d("Fetch Funds res", "gainers : $topGainersList")
+
+        Log.d("Fetch Funds res", "losers: $topLosserList")
+
+    }
+
 
     private suspend fun uiUpdate(): ArrayList<FirebaseDataModel>? {
         var data: ArrayList<FirebaseDataModel>? = null
@@ -144,12 +264,12 @@ class Homepage : Fragment() {
 
 
     private suspend fun updateValues(data: ArrayList<FirebaseDataModel>) {
-        var totalInvestment: Double = 0.0
-        var returns: Double = 0.0
+        var totalInvestment = 0.0
+        var returns = 0.0
 
         for (i in data) {
             totalInvestment += i.investmentAmount.toDouble()
-            val currentNav = findCurrentPrice(i.fundCode, requireContext())
+            val currentNav = findCurrentPrice(i.fundCode, requireContext()).first
             val units = i.units.toDouble()
             returns += currentNav * units
             returns -= i.investmentAmount.toDouble()
@@ -176,15 +296,15 @@ class Homepage : Fragment() {
 //                totalInvestmentTxt.text = totalInvestment.toString() + "0"
 //            }
             if (returnsTxt != null) {
-                val formated_values= String.format("%.2f",returns)
+                val formatedValues = String.format("%.2f", returns)
                 if (returns + totalInvestment > totalInvestment) {
                     activity?.runOnUiThread {
-                        returnsTxt.text = formated_values
+                        returnsTxt.text = formatedValues
                         returnsTxt.setTextColor(Color.parseColor("#39FF14"))
                     }
                 } else {
                     activity?.runOnUiThread {
-                        returnsTxt.text = formated_values
+                        returnsTxt.text = formatedValues
                         returnsTxt.setTextColor(Color.parseColor("#FF0000"))
                     }
                 }
@@ -201,31 +321,31 @@ class Homepage : Fragment() {
         }
     }
 
-    private suspend fun findCurrentPrice(fundCode: String, context: Context): Double =
+    private suspend fun findCurrentPrice(fundCode: String, context: Context): Pair<Double, Double> =
         withContext(Dispatchers.IO) {
             return@withContext suspendCoroutine { continuation ->
-                var currentNav: Double = 0.0
-
+                var currentNav: Double
+                var prevNav: Double
                 val url = "https://api.mfapi.in/mf/$fundCode"
                 val jsonObject =
                     JsonObjectRequest(
                         com.android.volley.Request.Method.GET,
                         url,
                         null,
-                        Response.Listener {
+                        {
                             val priceData = ArrayList<PriceData>()
                             val jsonArray = it.getJSONArray("data")
-                            for (i in 0 until 1) {
+                            for (i in 0 until 2) {
                                 val jsonObject = jsonArray.getJSONObject(i)
                                 val date = jsonObject.getString("date")
                                 val nav = jsonObject.getString("nav")
                                 val info = PriceData(date, nav)
                                 priceData.add(info)
                             }
-                            currentNav = priceData.get(0).price.toDouble()
-
-                            Log.d("REST RES", " $currentNav")
-                            continuation.resume(currentNav)
+                            currentNav = priceData[0].price.toDouble()
+                            prevNav = priceData[1].price.toDouble()
+//                            Log.d("REST RES", " $currentNav")
+                            continuation.resume(Pair(currentNav, prevNav))
                         }) { error ->
                         continuation.resumeWithException(error)
 
@@ -239,6 +359,8 @@ class Homepage : Fragment() {
 
         }
 }
+
+
 
 
 

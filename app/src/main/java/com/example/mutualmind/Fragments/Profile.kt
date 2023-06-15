@@ -1,4 +1,4 @@
-package com.example.mutualmind.Fragments
+package com.example.mutualmind.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.example.mutualmind.Login
@@ -17,8 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.suspendCoroutine
-import kotlin.math.log
 
 class Profile : Fragment() {
     lateinit var firebaseAuth: FirebaseAuth
