@@ -35,6 +35,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import org.w3c.dom.Text
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -42,8 +43,6 @@ import kotlin.coroutines.suspendCoroutine
 class Homepage : Fragment() {
     lateinit var firebaseAuth: FirebaseAuth
     private var GainList = ArrayList<TopGainModel>()
-    private var lossList = ArrayList<TopGainModel>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,18 +71,15 @@ class Homepage : Fragment() {
         )
         firebaseAuth = FirebaseAuth.getInstance()
         val GainAdapter = TopGainAdapter(requireActivity(), GainList)
-        val LossAdapter =TopGainAdapter(requireActivity(),lossList)
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
-          fetchFunds(requireContext())
+            fetchFunds(requireContext())
 
             val listview = view.findViewById<ListView>(R.id.listview)
-            val lossListView=view.findViewById<ListView>(R.id.losser_listview)
 //            list.clear()
 //            list.addAll(fundDataList)
 //            adapter.notifyDataSetChanged()
             listview.adapter = GainAdapter
-            lossListView.adapter=LossAdapter
             uiUpdate()
 
         }
@@ -93,7 +89,7 @@ class Homepage : Fragment() {
     }
 
 
-//    private fun fetchFunds(context: Context) {
+    //    private fun fetchFunds(context: Context) {
 //        val basicFundData = ArrayList<BasicFundInfo>()
 //        val url = "https://api.mfapi.in/mf"
 //        val jsonObject = JsonArrayRequest(Request.Method.GET, url, null, { response ->
@@ -133,46 +129,46 @@ class Homepage : Fragment() {
 //            .addToRequestQueue(jsonObject)
 //
 //    }
-private suspend fun fetchFunds(context: Context)= coroutineScope {
-    val basicFundData = ArrayList<BasicFundInfo>()
-    val fundDataList = ArrayList<TopGainModel>()
+    private suspend fun fetchFunds(context: Context) = coroutineScope {
+        val basicFundData = ArrayList<BasicFundInfo>()
+        val fundDataList = ArrayList<TopGainModel>()
 
-    val url = "https://api.mfapi.in/mf"
-    val jsonObject = JsonArrayRequest(Request.Method.GET, url, null, { response ->
-        val jsonArray = JSONArray(response.toString())
-        for (i in 0 until jsonArray.length()) {
-            val jsonObj = jsonArray.getJSONObject(i)
-            val schemeName = jsonObj.getString("schemeName")
-            val schemeCode = jsonObj.getString("schemeCode")
-            val fund = BasicFundInfo(schemeName, schemeCode)
-            basicFundData.add(fund)
-        }
+        val url = "https://api.mfapi.in/mf"
+        val jsonObject = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+            val jsonArray = JSONArray(response.toString())
+            for (i in 0 until jsonArray.length()) {
+                val jsonObj = jsonArray.getJSONObject(i)
+                val schemeName = jsonObj.getString("schemeName")
+                val schemeCode = jsonObj.getString("schemeCode")
+                val fund = BasicFundInfo(schemeName, schemeCode)
+                basicFundData.add(fund)
+            }
 
-        GlobalScope.launch(Dispatchers.IO) {
-            for (i in 0 until 10) {
-                val (currentRs, preNav) = withContext(Dispatchers.IO) {
-                    findCurrentPrice(basicFundData[i].schemecode, context)
+            GlobalScope.launch(Dispatchers.IO) {
+                for (i in 0 until 10) {
+                    val (currentRs, preNav) = withContext(Dispatchers.IO) {
+                        findCurrentPrice(basicFundData[i].schemecode, context)
+                    }
+                    val fundData = TopGainModel(
+                        true,
+                        basicFundData[i].schemename,
+                        basicFundData[i].schemecode,
+                        currentRs,
+                        preNav,
+                        0.0
+                    )
+                    fundDataList.add(fundData)
                 }
-                val fundData = TopGainModel(
-                    true,
-                    basicFundData[i].schemename,
-                    basicFundData[i].schemecode,
-                    currentRs,
-                    preNav,
-                    0.0
-                )
-                fundDataList.add(fundData)
+                withContext(Dispatchers.Main) {
+                    topGainnerNLossers(fundDataList)
+                }
             }
-            withContext(Dispatchers.Main) {
-                topGainnerNLossers(fundDataList)
-            }
-        }
-    }, { error ->
-        Log.d("Fetch Funds res", "fetchFunds: $error")
-    })
+        }, { error ->
+            Log.d("Fetch Funds res", "fetchFunds: $error")
+        })
 
-    VolleySingleTon.getInstance(context).addToRequestQueue(jsonObject)
-}
+        VolleySingleTon.getInstance(context).addToRequestQueue(jsonObject)
+    }
 
     private fun topGainnerNLossers(fundDataList: ArrayList<TopGainModel>) {
         Log.d("Fetch Funds res", "fetchFunds: $fundDataList")
@@ -190,24 +186,43 @@ private suspend fun fetchFunds(context: Context)= coroutineScope {
 
         }
         topLosserList.forEach {
-            it.flag=true
+            it.flag = true
             Log.d(
                 "Fetch Funds res",
                 "loosers :prev nav is  ${it.prevNav} and current nav is ${it.currentNav}"
             )
         }
         activity?.runOnUiThread {
+            val topGainTxt = view?.findViewById<TextView>(R.id.hom_top_gainer)
+            val topLossTxt = view?.findViewById<TextView>(R.id.hom_top_losser)
+
+            topGainTxt?.setBackgroundColor(Color.parseColor("#ffc107"))
+            topLossTxt?.setBackgroundColor(Color.TRANSPARENT)
+
             GainList.clear()
             GainList.addAll(topGainersList)
-            lossList.clear()
-            lossList.addAll(topLosserList)
             val adapter = TopGainAdapter(requireActivity(), GainList)
-            val ladapter=TopGainAdapter(requireActivity(),lossList)
             val listView = view?.findViewById<ListView>(R.id.listview)
-            val llistview=view?.findViewById<ListView>(R.id.losser_listview)
             listView?.adapter = adapter
-            llistview?.adapter= ladapter
+            adapter.notifyDataSetChanged()
+            topGainTxt?.setOnClickListener {
+                topGainTxt.setBackgroundColor(Color.parseColor("#ffc107"))
+                topLossTxt?.setBackgroundColor(Color.TRANSPARENT)
+
+                GainList.clear()
+                GainList.addAll(topGainersList)
+                adapter.notifyDataSetChanged()
+            }
+            topLossTxt?.setOnClickListener {
+                topLossTxt.setBackgroundColor(Color.parseColor("#ffc107"))
+                topGainTxt?.setBackgroundColor(Color.TRANSPARENT)
+
+                GainList.clear()
+                GainList.addAll(topLosserList)
+                adapter.notifyDataSetChanged()
+            }
         }
+
 
         Log.d("Fetch Funds res", "gainers : $topGainersList")
 

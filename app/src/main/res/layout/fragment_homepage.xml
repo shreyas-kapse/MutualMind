@@ -110,51 +110,49 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </RelativeLayout>
-
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="10dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/top_gainer"
-                android:textAppearance="@style/hello_welcome" />
-            <ListView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"/>
-
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/hom_top_gainer"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="32dp"
+            android:text="@string/top_gainer"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textAppearance="@style/hello_welcome"
+            android:clickable="true"
+            android:padding="10dp"
+            android:focusable="true" />
+        <TextView
+            android:id="@+id/hom_top_losser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/top_losers"
-            android:textAppearance="@style/hello_welcome" />
-            <ListView
-                android:id="@+id/losser_listview"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginEnd="13dp"
-                android:layout_weight="1"/>
-
-
-
-
-
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textAppearance="@style/hello_welcome"
+            android:clickable="true"
+            android:padding="10dp"
+            android:focusable="true"/>
 
     </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="13dp" />
 </LinearLayout>
 
