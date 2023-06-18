@@ -32,7 +32,7 @@ MutualMind is a visually stunning mutual fund tracking and investment management
 
 - Android Studio: MutualMind is developed using Android Studio, a powerful integrated development environment (IDE) for Android app development.
 - Kotlin: The application is written primarily in Kotlin, a modern and expressive programming language for Android development.
-- Figma: MutualMind's visually appealing user interface is designed using Figma, a collaborative design tool for creating stunning and interactive designs. View the design [here](https://www.figma.com/link-to-your-figma-design).
+- Figma: MutualMind's visually appealing user interface is designed using Figma, a collaborative design tool for creating stunning and interactive designs. View the design [here](https://www.figma.com/file/T1ViZKsLNFH63jLq9jF1mo/Untitled?type=design&node-id=0%3A1&t=45t6l3pqINs0RlXq-1).
 - Volley: The Volley library is employed for efficient and seamless API requests, enabling smooth data retrieval and integration.
 - Coroutines: MutualMind leverages Coroutines to handle asynchronous operations and task scheduling, ensuring responsive and efficient execution.
 
