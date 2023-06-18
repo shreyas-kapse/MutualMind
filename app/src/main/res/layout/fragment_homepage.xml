@@ -6,112 +6,155 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.Homepage">
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <View
-           android:id="@+id/rectangle_3"
-           android:layout_width="421dp"
-           android:layout_height="248dp"
-           android:layout_marginTop="-32dp"
-           android:layout_alignParentStart="true"
-           android:layout_alignParentTop="true"
-           android:background="@drawable/register_rectangle" />
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginStart="13dp"
-           android:layout_marginTop="23dp">
-           <ImageView
-               android:layout_width="50dp"
-               android:layout_height="50dp"
-               android:src="@drawable/ic_stocks"
-               />
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-                android:text="@string/app_name"
-               android:textAppearance="@style/hello_welcome"
-               android:layout_gravity="center_vertical"
-               android:textColor="@color/white"
-               android:layout_marginStart="10dp"/>
-       </LinearLayout>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/hi_user_"
-           android:layout_marginTop="87dp"
-           android:layout_marginStart="15dp"
-           android:textAppearance="@style/hello_welcome"
-           android:textColor="@color/white"
-           android:textStyle="bold" />
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/your_balance"
-           android:textAppearance="@style/hello_welcome"
-           android:textColor="@color/white"
-           android:layout_marginTop="110dp"
-           android:layout_marginStart="15dp"/>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="150dp"
-           android:layout_marginEnd="25dp"
-           android:layout_marginStart="25dp">
-           <TextView
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:textAlignment="textStart"
-               android:textColor="@color/white"
-               android:text="@string/investment"/>
-           <TextView
-               android:layout_width="0dp"
-               android:textColor="@color/white"
-               android:layout_height="wrap_content"
-               android:layout_weight="0.7"
-               android:textAlignment="center"
-               android:text="@string/returns"/>
-       </LinearLayout>
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="170dp"
-           android:layout_marginStart="25dp"
-           android:layout_marginEnd="25dp">
-       <TextView
-           android:layout_width="0dp"
-           android:textColor="@color/white"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           android:textAlignment="textStart"
-           android:id="@+id/hom_total_investment"
-           android:text="00"/>
-       <TextView
-           android:layout_width="0dp"
-           android:textColor="@color/white"
-           android:layout_height="wrap_content"
-           android:layout_weight="0.7"
-           android:textAlignment="center"
-           android:id="@+id/hom_total_returns"
-           android:text="00"/>
-       </LinearLayout>
-   </RelativeLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/top_gainer"
-        android:textAppearance="@style/hello_welcome"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="13dp"/>
 
-    <ListView
-        android:id="@+id/listview"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/rectangle_3"
+            android:layout_width="421dp"
+            android:layout_height="248dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-32dp"
+            android:background="@drawable/register_rectangle" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="23dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_stocks" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@string/app_name"
+                android:textAppearance="@style/hello_welcome"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="87dp"
+            android:text="@string/hi_user_"
+            android:textAppearance="@style/hello_welcome"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="110dp"
+            android:text="@string/your_balance"
+            android:textAppearance="@style/hello_welcome"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="25dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/investment"
+                android:textAlignment="textStart"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="@string/returns"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginEnd="25dp">
+
+            <TextView
+                android:id="@+id/hom_total_investment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="00"
+                android:textAlignment="textStart"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/hom_total_returns"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="00"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="13dp" />
+        android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="32dp"
+                android:text="@string/top_gainer"
+                android:textAppearance="@style/hello_welcome" />
+            <ListView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="13dp"
+                android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/top_losers"
+            android:textAppearance="@style/hello_welcome" />
+            <ListView
+                android:id="@+id/losser_listview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="13dp"
+                android:layout_weight="1"/>
+
+
+
+
+
+
+    </LinearLayout>
 </LinearLayout>
+

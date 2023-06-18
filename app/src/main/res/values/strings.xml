@@ -55,5 +55,6 @@ Top Gainer
     <string name="_1_month">1 Month</string>
     <string name="_1_week">1 Week</string>
     <string name="_1_day">1 Day</string>
+    <string name="top_losers">Top Losers</string>
 
 </resources>

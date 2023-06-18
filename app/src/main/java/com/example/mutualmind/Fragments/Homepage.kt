@@ -29,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -42,7 +41,8 @@ import kotlin.coroutines.suspendCoroutine
 
 class Homepage : Fragment() {
     lateinit var firebaseAuth: FirebaseAuth
-    private var list = ArrayList<TopGainModel>()
+    private var GainList = ArrayList<TopGainModel>()
+    private var lossList = ArrayList<TopGainModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +50,7 @@ class Homepage : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
 
-        list.add(
+        GainList.add(
             TopGainModel(
                 true,
                 "Aditya Birla Sun Life Income Fund - Growth - Regular Plan",
@@ -60,7 +60,7 @@ class Homepage : Fragment() {
                 0.1
             )
         )
-        list.add(
+        GainList.add(
             TopGainModel(
                 false,
                 "shreyas Birla Sun Life Income Fund - Growth - Regular Plan",
@@ -71,16 +71,19 @@ class Homepage : Fragment() {
             )
         )
         firebaseAuth = FirebaseAuth.getInstance()
-        val adapter = TopGainAdapter(requireActivity(), list)
+        val GainAdapter = TopGainAdapter(requireActivity(), GainList)
+        val LossAdapter =TopGainAdapter(requireActivity(),lossList)
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
           fetchFunds(requireContext())
 
             val listview = view.findViewById<ListView>(R.id.listview)
+            val lossListView=view.findViewById<ListView>(R.id.losser_listview)
 //            list.clear()
 //            list.addAll(fundDataList)
 //            adapter.notifyDataSetChanged()
-            listview.adapter = adapter
+            listview.adapter = GainAdapter
+            lossListView.adapter=LossAdapter
             uiUpdate()
 
         }
@@ -146,7 +149,7 @@ private suspend fun fetchFunds(context: Context)= coroutineScope {
         }
 
         GlobalScope.launch(Dispatchers.IO) {
-            for (i in 0 until 100) {
+            for (i in 0 until 10) {
                 val (currentRs, preNav) = withContext(Dispatchers.IO) {
                     findCurrentPrice(basicFundData[i].schemecode, context)
                 }
@@ -194,11 +197,16 @@ private suspend fun fetchFunds(context: Context)= coroutineScope {
             )
         }
         activity?.runOnUiThread {
-            list.clear()
-            list.addAll(topGainersList)
-            val adapter = TopGainAdapter(requireActivity(), list)
+            GainList.clear()
+            GainList.addAll(topGainersList)
+            lossList.clear()
+            lossList.addAll(topLosserList)
+            val adapter = TopGainAdapter(requireActivity(), GainList)
+            val ladapter=TopGainAdapter(requireActivity(),lossList)
             val listView = view?.findViewById<ListView>(R.id.listview)
+            val llistview=view?.findViewById<ListView>(R.id.losser_listview)
             listView?.adapter = adapter
+            llistview?.adapter= ladapter
         }
 
         Log.d("Fetch Funds res", "gainers : $topGainersList")
