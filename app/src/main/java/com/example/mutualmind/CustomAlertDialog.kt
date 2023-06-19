@@ -10,6 +10,7 @@ class CustomAlertDialog {
 
         dialog.setContentView(R.layout.loading_alert_dialog)
         dialog.setCancelable(false)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
 
         return dialog
