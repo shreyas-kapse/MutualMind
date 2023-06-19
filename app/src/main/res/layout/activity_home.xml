@@ -25,7 +25,6 @@
         android:layout_height="60dp"
         android:background="@color/white"
         app:menu="@menu/bottom_navbar"
-        app:itemIconTint="#FFC107"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
