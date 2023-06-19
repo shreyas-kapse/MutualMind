@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.android.volley.Request
 
 import com.android.volley.toolbox.JsonArrayRequest
@@ -195,10 +196,11 @@ class Homepage : Fragment() {
         activity?.runOnUiThread {
             val topGainTxt = view?.findViewById<TextView>(R.id.hom_top_gainer)
             val topLossTxt = view?.findViewById<TextView>(R.id.hom_top_losser)
+            val lottieAnimationView=view?.findViewById<LottieAnimationView>(R.id.hom_stock_icon_anim)
 
             topGainTxt?.setBackgroundColor(Color.parseColor("#ffc107"))
             topLossTxt?.setBackgroundColor(Color.TRANSPARENT)
-
+            lottieAnimationView?.cancelAnimation()
             GainList.clear()
             GainList.addAll(topGainersList)
             val adapter = TopGainAdapter(requireActivity(), GainList)
