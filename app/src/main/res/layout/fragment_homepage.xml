@@ -26,10 +26,15 @@
             android:layout_marginStart="13dp"
             android:layout_marginTop="23dp">
 
-            <ImageView
+            <!--            <ImageView-->
+            <!--                android:layout_width="50dp"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:src="@drawable/ic_stocks" />-->
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_stocks" />
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/growth" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,6 +47,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/hom_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -52,19 +58,33 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/hom_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="120dp"
             android:text="@string/your_balance"
             android:textAppearance="@style/hello_welcome"
             android:textColor="@color/white" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/hom_stock_icon_anim"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_alignBottom="@+id/hom_msg"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toEndOf="@+id/hom_msg"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/stock_candle_loading" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="160dp"
             android:layout_marginEnd="25dp">
 
             <TextView
@@ -88,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="180dp"
             android:layout_marginEnd="25dp">
 
             <TextView
@@ -110,49 +130,53 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </RelativeLayout>
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="32dp"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp">
-    <LinearLayout
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/hom_top_gainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/top_gainer"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textAppearance="@style/hello_welcome"
-            android:clickable="true"
-            android:padding="10dp"
-            android:focusable="true" />
-        <TextView
-            android:id="@+id/hom_top_losser"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/top_losers"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textAppearance="@style/hello_welcome"
-            android:clickable="true"
-            android:padding="10dp"
-            android:focusable="true"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="10dp">
 
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
-
-        <ListView
-            android:id="@+id/listview"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginEnd="13dp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/hom_top_gainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:text="@string/top_gainer"
+                android:textAlignment="center"
+                android:textAppearance="@style/hello_welcome" />
+
+            <TextView
+                android:id="@+id/hom_top_losser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:text="@string/top_losers"
+                android:textAlignment="center"
+                android:textAppearance="@style/hello_welcome" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp" />
 </LinearLayout>
 

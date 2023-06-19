@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,173 +10,222 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <View
             android:id="@+id/rectangle_3"
             android:layout_width="421dp"
             android:layout_height="248dp"
-            android:layout_marginTop="-32dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="-32dp"
             android:background="@drawable/register_rectangle" />
+
         <View
             android:id="@+id/ellipse_1"
             android:layout_width="112dp"
             android:layout_height="109dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="35dp"
-            android:background="@drawable/eclipes"/>
+            android:background="@drawable/eclipes" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_avatar"
-            android:layout_marginTop="55dp"
             android:layout_marginStart="54dp"
-            android:contentDescription="@string/avatar" />
+            android:layout_marginTop="55dp"
+            android:contentDescription="@string/avatar"
+            android:src="@drawable/ic_avatar" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/pro_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Shreyas Kapse"
-                android:id="@+id/pro_username"
+                android:layout_marginStart="160dp"
                 android:layout_marginTop="60dp"
                 android:fontFamily="@font/lato_regular"
+                android:text="Shreyas Kapse"
                 android:textAppearance="@style/hello_welcome"
-                android:textColor="@color/white"
-                android:layout_marginStart="160dp"/>
+                android:textColor="@color/white" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/edit_profile_change_username"
+                android:layout_marginStart="160dp"
                 android:layout_marginTop="7dp"
-                android:textAppearance="@style/edit_profi"
-                android:layout_marginStart="160dp"/>
+                android:text="@string/edit_profile_change_username"
+                android:textAppearance="@style/edit_profi" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/invest_with_us"
-                android:textAppearance="@style/edit_profil"
                 android:layout_marginStart="165dp"
                 android:layout_marginTop="18dp"
                 android:backgroundTint="@color/white"
-                android:textColor="@color/black"/>
+                android:text="@string/invest_with_us"
+                android:textAppearance="@style/edit_profil"
+                android:textColor="@color/black" />
         </LinearLayout>
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="47dp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_acc"
-            android:layout_gravity="center"/>
+        <!--        -->
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:src="@drawable/ic_acc"-->
+        <!--            android:layout_gravity="center"/>-->
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/transaction" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/lato_regular"
             android:text="@string/my_transactions"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/lato_regular"
-            android:textAppearance="@style/login_with"/>
+            android:textAppearance="@style/login_with" />
+
         <View
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/ic_arrow"
-            android:layout_gravity="center" />
+            android:background="@drawable/ic_arrow" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="19dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_settings"
-            android:layout_gravity="center"/>
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:src="@drawable/ic_settings" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/settings" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
+            android:fontFamily="@font/lato_regular"
             android:text="@string/settings"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/lato_regular"
-            android:textAppearance="@style/login_with"/>
+            android:textAppearance="@style/login_with" />
+
         <View
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/ic_arrow"
-            android:layout_gravity="center"/>
+            android:background="@drawable/ic_arrow" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="19dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_about"/>
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:src="@drawable/ic_about" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/profile" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
+            android:fontFamily="@font/lato_regular"
             android:text="@string/about_us"
-            android:layout_marginStart="10dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/lato_regular"
-            android:textAppearance="@style/login_with"/>
+            android:textAppearance="@style/login_with" />
+
         <View
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/ic_arrow"/>
+            android:background="@drawable/ic_arrow" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="19dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="19dp"
         android:layout_marginEnd="10dp"
-        android:id="@+id/logout"
         android:padding="10dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_logout"/>
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:src="@drawable/ic_logout" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/logout" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Logout"
-            android:layout_marginStart="10dp"
             android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:fontFamily="@font/lato_regular"
-            android:textAppearance="@style/login_with"/>
+            android:text="Logout"
+            android:textAppearance="@style/login_with" />
+
         <View
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/ic_arrow"/>
+            android:background="@drawable/ic_arrow" />
     </LinearLayout>
 </LinearLayout>
