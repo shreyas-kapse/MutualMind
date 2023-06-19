@@ -121,18 +121,19 @@
         android:layout_marginEnd="10dp"
         android:padding="10dp">
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:src="@drawable/ic_settings" />-->
-<com.airbnb.lottie.LottieAnimationView
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:padding="10dp"
-    app:lottie_rawRes="@raw/settings"
-    app:lottie_autoPlay="true"
-    app:lottie_loop="true"/>
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:src="@drawable/ic_settings" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/settings" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -160,16 +161,17 @@
         android:layout_marginEnd="10dp"
         android:padding="10dp">
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:src="@drawable/ic_about" />-->
-<com.airbnb.lottie.LottieAnimationView
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    app:lottie_rawRes="@raw/profile"
-    app:lottie_loop="true"
-    app:lottie_autoPlay="true"/>
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:src="@drawable/ic_about" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/profile" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -198,16 +200,17 @@
         android:layout_marginEnd="10dp"
         android:padding="10dp">
 
-<!--        <ImageView-->
-<!--            android:layout_width="30dp"-->
-<!--            android:layout_height="30dp"-->
-<!--            android:src="@drawable/ic_logout" />-->
-<com.airbnb.lottie.LottieAnimationView
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    app:lottie_rawRes="@raw/logout"
-    app:lottie_loop="true"
-    app:lottie_autoPlay="true"/>
+        <!--        <ImageView-->
+        <!--            android:layout_width="30dp"-->
+        <!--            android:layout_height="30dp"-->
+        <!--            android:src="@drawable/ic_logout" />-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/logout" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
