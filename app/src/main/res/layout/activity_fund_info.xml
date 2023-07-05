@@ -29,219 +29,79 @@
             android:textAppearance="@style/login_with" />
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fun_amount_edt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/amount"
-            android:inputType="numberDecimal"></com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/fun_nav_edt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/nav"
-            android:inputType="numberDecimal"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/fun_add_to_folio_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/green_dark"
-        android:fontFamily="@font/lato_regular"
-        android:text="@string/add_to_portfolio"
-        android:textAppearance="@style/login_with"
-        app:cornerRadius="10dp" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/customeborder">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:ignore="UselessParent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/fund_house" />
-
-                <TextView
-                    android:id="@+id/fun_fund_house"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    tools:text="Axis Mutual fund" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/category" />
-
-                <TextView
-                    android:id="@+id/fun_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="17dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    tools:text="Debt Scheme - Overnight Fund" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/scheme_name" />
-
-                <TextView
-                    android:id="@+id/fun_fund_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="Axis Overnight Fund - Direct Plan - Growth Option" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="@string/nav" />
-
-                <TextView
-                    android:id="@+id/fun_nav"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="1"
-                    android:text="1231.10" />
-            </LinearLayout>
+                android:layout_margin="10dp"
+                android:layout_height="300dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/lato_regular"
                 android:text="@string/performance"
-                android:textFontWeight="700" />
+                android:textFontWeight="700"
+                android:textSize="20sp" />
 
-            <LinearLayout
+            <include
+                android:id="@+id/scroll_layout"
+                layout="@layout/returns"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp">
 
-                <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fun_amount_edt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:id="@+id/oneYear"
-                    android:text="@string/_1_year"
-                    app:cornerRadius="10dp" />
+                    android:hint="@string/amount"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/sixMonths"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/_6_months"
-                    app:cornerRadius="10dp" />
-
-                <Button
-                    android:id="@+id/threeMonths"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/_3_months"
-                    app:cornerRadius="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp">
 
-                <Button
-                    android:id="@+id/oneMonth"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fun_nav_edt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/_1_month"
-                    app:cornerRadius="10dp" />
+                    android:hint="@string/nav"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/oneWeek"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/_1_week"
-                    app:cornerRadius="10dp" />
+            <Button
+                android:id="@+id/fun_add_to_folio_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/green_dark"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/add_to_portfolio"
+                android:textAppearance="@style/login_with"
+                app:cornerRadius="10dp"
+                android:layout_marginBottom="20dp"/>
 
-                <Button
-                    android:id="@+id/oneDay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/_1_day"
-                    app:cornerRadius="10dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
 
-</LinearLayout>
+        </LinearLayout></ScrollView></LinearLayout>

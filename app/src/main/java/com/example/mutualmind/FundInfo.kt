@@ -3,9 +3,13 @@ package com.example.mutualmind
 import VolleySingleTon
 import android.graphics.Color
 import android.os.Bundle
+import android.renderscript.ScriptGroup.Binding
 import android.util.Log
-import android.widget.Button
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.viewbinding.ViewBinding
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -14,6 +18,12 @@ import com.example.mutualmind.Model.FirebaseUserDataModel
 import com.example.mutualmind.Model.FundDetails
 import com.example.mutualmind.Model.PriceData
 import com.example.mutualmind.databinding.ActivityFundInfoBinding
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
@@ -36,12 +46,15 @@ class FundInfo : AppCompatActivity() {
         fundName = intent.getStringExtra("fundName")
         fundCode = intent.getStringExtra("fundCode")
 
-        binding.funFundName.text = fundName
+        val funFundName=findViewById<TextView>(R.id.fun_fund_name)
+
+        funFundName.text = fundName
+
         val coroutineScope = CoroutineScope(Dispatchers.IO)
         coroutineScope.launch {
             fetchFundDetails(fundCode)
         }
-
+        createChart()
 
         binding.funAddToFolioBtn.setOnClickListener {
             val nav = binding.funNavEdt.text.toString()
@@ -60,6 +73,57 @@ class FundInfo : AppCompatActivity() {
 
             Log.d("user", "onCreate:$units ")
         }
+
+    }
+
+    private fun createChart() {
+        val chart=findViewById<LineChart>(R.id.chart)
+        val entries: MutableList<Entry> = ArrayList()
+        entries.add(Entry(0f, 4f))
+        entries.add(Entry(1f, 3f))
+        entries.add(Entry(2f, 2f))
+        entries.add(Entry(3f, 1f))
+        entries.add(Entry(4f, 5f))
+        entries.add(Entry(5f, 4f))
+        entries.add(Entry(6f, 6f))
+
+        val linedataset= LineDataSet(entries,"First")
+        linedataset.color=resources.getColor(R.color.black)
+        linedataset.setDrawFilled(true)
+        linedataset.fillDrawable = ContextCompat.getDrawable(this, R.drawable.gradient)
+        val data= LineData(linedataset)
+
+        linedataset.setLineWidth(2F);
+        linedataset.setCircleRadius(6F);
+        linedataset.setCircleColor(Color.WHITE);
+        linedataset.setColor(R.color.red);
+        linedataset.setDrawCircleHole(true);
+        linedataset.setDrawCircles(true);
+        linedataset.setDrawHorizontalHighlightIndicator(false);
+        linedataset.setDrawHighlightIndicators(false);
+        chart.data=data
+//        chart.animateX(2000)
+        chart.animateY(3000)
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.textColor = Color.LTGRAY
+        xAxis.enableGridDashedLine(16f, 12f, 0f)
+        linedataset.circleHoleColor=R.color.red
+        val yAxis=chart.axisRight
+        yAxis.setDrawAxisLine(false)
+        yAxis.setDrawGridLines(false)
+        yAxis.setDrawLabels(false)
+        chart.invalidate()
+
+
+        val yAxisLeft: YAxis = chart.axisLeft
+        yAxisLeft.setDrawLabels(false)
+        yAxisLeft.setDrawAxisLine(false)
+        yAxisLeft.setDrawGridLines(false)
+        yAxis.spaceTop = 25f
+        yAxis.spaceBottom = 25f
+        chart.invalidate()
 
     }
 
@@ -127,10 +191,14 @@ class FundInfo : AppCompatActivity() {
             }
             calculateReturns(priceData)
             val nav = priceData.get(0).price
-            binding.funFundName.text = schemeName
-            binding.funCategory.text = category
-            binding.funFundHouse.text = fundHouse
-            binding.funNav.text = nav
+            val funFundName=findViewById<TextView>(R.id.fun_fund_name)
+            funFundName.text = schemeName
+            val funCategory=findViewById<TextView>(R.id.fun_category)
+            funCategory.text = category
+            val funFundHouse=findViewById<TextView>(R.id.fun_fund_house)
+            funFundHouse.text = fundHouse
+            val funNav=findViewById<TextView>(R.id.fun_nav)
+            funNav.text = nav
 //            Log.d("REST RES", " $priceData")
         }) { error ->
             Log.d("REST RES", "error $error")
@@ -160,12 +228,12 @@ class FundInfo : AppCompatActivity() {
         for (i in 0 until 365) {
             oneYear.add(priceData.get(i))
         }
-        val oneDayBtn = binding.oneDay
-        val oneWeekBtn = binding.oneWeek
-        val oneMonthBtn = binding.oneMonth
-        val threeMonthsBtn = binding.threeMonths
-        val sixMonthsBtn = binding.sixMonths
-        val oneYearBtn = binding.oneYear
+        val oneDayBtn = findViewById<TextView>(R.id.oneDay)
+        val oneWeekBtn = findViewById<TextView>(R.id.oneWeek)
+        val oneMonthBtn = findViewById<TextView>(R.id.oneMonth)
+        val threeMonthsBtn = findViewById<TextView>(R.id.threeMonths)
+        val sixMonthsBtn = findViewById<TextView>(R.id.sixMonths)
+        val oneYearBtn = findViewById<TextView>(R.id.oneYear)
         setTrendColor(oneWeek.get(1).price.toDouble() > oneWeek.get(0).price.toDouble(), oneDayBtn)
         setTrendColor(
             oneWeek.get(oneWeek.size - 1).price.toDouble() > oneWeek.get(0).price.toDouble(),
@@ -195,13 +263,13 @@ class FundInfo : AppCompatActivity() {
 //        }
     }
 
-    private fun setTrendColor(b: Boolean, b1: Button) {
+    private fun setTrendColor(b: Boolean, b1: TextView) {
         if (b) {
             //negative
-            b1.setBackgroundColor(Color.RED)
+            b1.setTextColor(Color.RED)
         } else {
             //positive
-            b1.setBackgroundColor(Color.parseColor("#18BC28"))
+            b1.setTextColor(Color.parseColor("#18BC28"))
         }
     }
 }
