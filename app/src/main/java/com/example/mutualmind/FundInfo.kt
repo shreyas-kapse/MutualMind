@@ -3,13 +3,10 @@ package com.example.mutualmind
 import VolleySingleTon
 import android.graphics.Color
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
 import android.util.Log
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.viewbinding.ViewBinding
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -28,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -54,7 +52,7 @@ class FundInfo : AppCompatActivity() {
         coroutineScope.launch {
             fetchFundDetails(fundCode)
         }
-        createChart()
+
 
         binding.funAddToFolioBtn.setOnClickListener {
             val nav = binding.funNavEdt.text.toString()
@@ -76,16 +74,20 @@ class FundInfo : AppCompatActivity() {
 
     }
 
-    private fun createChart() {
+    private fun createChar(oneWeek: ArrayList<Float>) {
         val chart=findViewById<LineChart>(R.id.chart)
         val entries: MutableList<Entry> = ArrayList()
-        entries.add(Entry(0f, 4f))
-        entries.add(Entry(1f, 3f))
-        entries.add(Entry(2f, 2f))
-        entries.add(Entry(3f, 1f))
-        entries.add(Entry(4f, 5f))
-        entries.add(Entry(5f, 4f))
-        entries.add(Entry(6f, 6f))
+        for(i in 0 until oneWeek.size){
+            val index:Float=0f
+            entries.add(Entry(oneWeek[i],index))
+        }
+//        entries.add(Entry(0f, 4f))
+//        entries.add(Entry(1f, 3f))
+//        entries.add(Entry(2f, 2f))
+//        entries.add(Entry(3f, 1f))
+//        entries.add(Entry(4f, 5f))
+//        entries.add(Entry(5f, 4f))
+//        entries.add(Entry(6f, 6f))
 
         val linedataset= LineDataSet(entries,"First")
         linedataset.color=resources.getColor(R.color.black)
@@ -93,10 +95,10 @@ class FundInfo : AppCompatActivity() {
         linedataset.fillDrawable = ContextCompat.getDrawable(this, R.drawable.gradient)
         val data= LineData(linedataset)
 
-        linedataset.setLineWidth(2F);
-        linedataset.setCircleRadius(6F);
+        linedataset.lineWidth = 2F;
+        linedataset.circleRadius = 6F;
         linedataset.setCircleColor(Color.WHITE);
-        linedataset.setColor(R.color.red);
+        linedataset.color = R.color.red;
         linedataset.setDrawCircleHole(true);
         linedataset.setDrawCircles(true);
         linedataset.setDrawHorizontalHighlightIndicator(false);
@@ -125,6 +127,62 @@ class FundInfo : AppCompatActivity() {
         yAxis.spaceBottom = 25f
         chart.invalidate()
 
+    }
+    private fun createChart(oneWeek: ArrayList<PriceData>) {
+        val chart = findViewById<LineChart>(R.id.chart)
+        val entries: MutableList<Entry> = ArrayList()
+//        for (i in 0 until oneWeek.size) {
+//            val priceData = oneWeek[i]
+//            val entry = Entry(priceData.price.toFloat(), i.toFloat())
+//            entries.add(entry)
+//        }
+        val startingIndex = 1
+        for (i in 0 until oneWeek.size) {
+            val priceData = oneWeek[i]
+            val entry = Entry((i - startingIndex).toFloat(), priceData.price.toFloat())
+            entries.add(entry)
+        }
+
+
+
+        val linedataset = LineDataSet(entries, "First")
+        linedataset.color = resources.getColor(R.color.black)
+        linedataset.setDrawFilled(true)
+        linedataset.fillDrawable = ContextCompat.getDrawable(this, R.drawable.gradient)
+        val data = LineData(linedataset)
+
+        linedataset.lineWidth = 1F
+        linedataset.circleRadius = 2F
+        linedataset.setCircleColor(Color.BLACK)
+        linedataset.color = R.color.red
+        linedataset.setDrawCircleHole(true)
+        linedataset.setDrawCircles(true)
+        linedataset.setDrawHorizontalHighlightIndicator(false)
+        linedataset.setDrawHighlightIndicators(false)
+        chart.data = data
+        chart.animateY(3000)
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.textColor = Color.LTGRAY
+        xAxis.enableGridDashedLine(16f, 12f, 0f)
+        linedataset.circleHoleColor = R.color.red
+        val yAxis = chart.axisRight
+        yAxis.setDrawAxisLine(false)
+        yAxis.setDrawGridLines(false)
+        yAxis.setDrawLabels(false)
+        chart.invalidate()
+
+//        val yAxisLeft: YAxis = chart.axisLeft
+//        yAxisLeft.setDrawLabels(false)
+//        yAxisLeft.setDrawAxisLine(false)
+//        yAxisLeft.setDrawGridLines(false)
+//        yAxis.spaceTop = 25f
+//        yAxis.spaceBottom = 25f
+        val yAxisLeft: YAxis = chart.axisLeft
+        yAxisLeft.setDrawLabels(true)
+        yAxisLeft.textColor = Color.LTGRAY
+        chart.invalidate()
     }
 
     private suspend fun updateUi(
@@ -190,7 +248,7 @@ class FundInfo : AppCompatActivity() {
                 priceData.add(info)
             }
             calculateReturns(priceData)
-            val nav = priceData.get(0).price
+            val nav = priceData[0].price
             val funFundName=findViewById<TextView>(R.id.fun_fund_name)
             funFundName.text = schemeName
             val funCategory=findViewById<TextView>(R.id.fun_category)
@@ -213,9 +271,12 @@ class FundInfo : AppCompatActivity() {
         val threeMonths = ArrayList<PriceData>()
         val sixMonths = ArrayList<PriceData>()
         val oneYear = ArrayList<PriceData>()
+        val oneWeekVal=ArrayList<Float>()
         for (i in 0 until 7) {
-            oneWeek.add(priceData.get(i));
+            oneWeek.add(priceData[i]);
+            oneWeekVal.add(priceData[i].price.toFloat())
         }
+        createChart(priceData)
         for (i in 0 until 30) {
             oneMonth.add(priceData.get(i))
         }
@@ -226,7 +287,7 @@ class FundInfo : AppCompatActivity() {
             sixMonths.add(priceData.get(i))
         }
         for (i in 0 until 365) {
-            oneYear.add(priceData.get(i))
+            oneYear.add(priceData[i])
         }
         val oneDayBtn = findViewById<TextView>(R.id.oneDay)
         val oneWeekBtn = findViewById<TextView>(R.id.oneWeek)
@@ -234,7 +295,46 @@ class FundInfo : AppCompatActivity() {
         val threeMonthsBtn = findViewById<TextView>(R.id.threeMonths)
         val sixMonthsBtn = findViewById<TextView>(R.id.sixMonths)
         val oneYearBtn = findViewById<TextView>(R.id.oneYear)
-        setTrendColor(oneWeek.get(1).price.toDouble() > oneWeek.get(0).price.toDouble(), oneDayBtn)
+
+        // calculate return for one week
+        val oneWeekProfit=priceData.get(0).price.toDouble()-priceData.get(7).price.toDouble()
+        val oneWeekReturn=(oneWeekProfit/oneWeek.get(0).price.toDouble())*100
+        val oneWeekFinal= String.format("%.1f",oneWeekReturn).toDouble()
+        oneWeekBtn.text= "$oneWeekFinal%"
+
+
+        // calculate return for one day
+        val oneDayProfit=priceData.get(0).price.toDouble()-priceData.get(1).price.toDouble()
+        val oneDayReturn=(oneDayProfit/priceData.get(0).price.toDouble())*100
+        val oneDayFinal= String.format("%.1f",oneDayReturn).toDouble()
+        oneDayBtn.text="$oneDayFinal%"
+
+        // calculate return for one month
+        val oneMonthProfit=priceData.get(0).price.toDouble()-priceData.get(30).price.toDouble()
+        val oneMonthReturn=(oneMonthProfit/priceData.get(0).price.toDouble())*100
+        val oneMonthFinal= String.format("%.1f",oneMonthReturn).toDouble()
+        oneMonthBtn.text="$oneMonthFinal%"
+
+        //calculate return for 3 month
+        val threeMonthProfit=priceData.get(0).price.toDouble()-priceData.get(90).price.toDouble()
+        val threeMonthReturn=(threeMonthProfit/priceData.get(0).price.toDouble())*100
+        val threeMonthFinal= String.format("%.1f",threeMonthReturn).toDouble()
+        threeMonthsBtn.text="$threeMonthFinal%"
+
+
+        //calculate return for 6 months
+        val sixMonthProfit=priceData.get(0).price.toDouble()-priceData.get(180).price.toDouble()
+        val sixMonthReturn=(sixMonthProfit/priceData.get(0).price.toDouble())*100
+        val sixMonthFinal= String.format("%.1f",sixMonthReturn).toDouble()
+        sixMonthsBtn.text="$sixMonthFinal%"
+
+        // calculate return for 1year
+        val oneYearProfit=priceData.get(0).price.toDouble()-priceData.get(365).price.toDouble()
+        val oneYearReturn=(oneYearProfit/priceData.get(0).price.toDouble())*100
+        val oneYearFinal=String.format("%.1f",oneYearReturn).toDouble()
+        oneYearBtn.text="$oneYearFinal%"
+
+        setTrendColor(oneDayReturn > 0, oneDayBtn)
         setTrendColor(
             oneWeek.get(oneWeek.size - 1).price.toDouble() > oneWeek.get(0).price.toDouble(),
             oneWeekBtn
@@ -263,8 +363,9 @@ class FundInfo : AppCompatActivity() {
 //        }
     }
 
+
     private fun setTrendColor(b: Boolean, b1: TextView) {
-        if (b) {
+        if (!b) {
             //negative
             b1.setTextColor(Color.RED)
         } else {
