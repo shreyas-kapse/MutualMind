@@ -167,9 +167,7 @@
                 android:textAppearance="@style/hello_welcome" />
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
@@ -177,6 +175,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="13dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="13dp" />
+        android:layout_marginEnd="13dp"
+        android:background="@drawable/customeborder"/>
 </LinearLayout>
 
