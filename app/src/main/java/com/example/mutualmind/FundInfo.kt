@@ -25,7 +25,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -44,7 +43,7 @@ class FundInfo : AppCompatActivity() {
         fundName = intent.getStringExtra("fundName")
         fundCode = intent.getStringExtra("fundCode")
 
-        val funFundName=findViewById<TextView>(R.id.fun_fund_name)
+        val funFundName = findViewById<TextView>(R.id.fun_fund_name)
 
         funFundName.text = fundName
 
@@ -75,11 +74,11 @@ class FundInfo : AppCompatActivity() {
     }
 
     private fun createChar(oneWeek: ArrayList<Float>) {
-        val chart=findViewById<LineChart>(R.id.chart)
+        val chart = findViewById<LineChart>(R.id.chart)
         val entries: MutableList<Entry> = ArrayList()
-        for(i in 0 until oneWeek.size){
-            val index:Float=0f
-            entries.add(Entry(oneWeek[i],index))
+        for (i in 0 until oneWeek.size) {
+            val index: Float = 0f
+            entries.add(Entry(oneWeek[i], index))
         }
 //        entries.add(Entry(0f, 4f))
 //        entries.add(Entry(1f, 3f))
@@ -89,11 +88,11 @@ class FundInfo : AppCompatActivity() {
 //        entries.add(Entry(5f, 4f))
 //        entries.add(Entry(6f, 6f))
 
-        val linedataset= LineDataSet(entries,"First")
-        linedataset.color=resources.getColor(R.color.black)
+        val linedataset = LineDataSet(entries, "First")
+        linedataset.color = resources.getColor(R.color.black)
         linedataset.setDrawFilled(true)
         linedataset.fillDrawable = ContextCompat.getDrawable(this, R.drawable.gradient)
-        val data= LineData(linedataset)
+        val data = LineData(linedataset)
 
         linedataset.lineWidth = 2F;
         linedataset.circleRadius = 6F;
@@ -103,7 +102,7 @@ class FundInfo : AppCompatActivity() {
         linedataset.setDrawCircles(true);
         linedataset.setDrawHorizontalHighlightIndicator(false);
         linedataset.setDrawHighlightIndicators(false);
-        chart.data=data
+        chart.data = data
 //        chart.animateX(2000)
         chart.animateY(3000)
 
@@ -111,8 +110,8 @@ class FundInfo : AppCompatActivity() {
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.textColor = Color.LTGRAY
         xAxis.enableGridDashedLine(16f, 12f, 0f)
-        linedataset.circleHoleColor=R.color.red
-        val yAxis=chart.axisRight
+        linedataset.circleHoleColor = R.color.red
+        val yAxis = chart.axisRight
         yAxis.setDrawAxisLine(false)
         yAxis.setDrawGridLines(false)
         yAxis.setDrawLabels(false)
@@ -128,6 +127,7 @@ class FundInfo : AppCompatActivity() {
         chart.invalidate()
 
     }
+
     private fun createChart(oneWeek: ArrayList<PriceData>) {
         val chart = findViewById<LineChart>(R.id.chart)
         val entries: MutableList<Entry> = ArrayList()
@@ -142,7 +142,6 @@ class FundInfo : AppCompatActivity() {
             val entry = Entry((i - startingIndex).toFloat(), priceData.price.toFloat())
             entries.add(entry)
         }
-
 
 
         val linedataset = LineDataSet(entries, "First")
@@ -249,13 +248,13 @@ class FundInfo : AppCompatActivity() {
             }
             calculateReturns(priceData)
             val nav = priceData[0].price
-            val funFundName=findViewById<TextView>(R.id.fun_fund_name)
+            val funFundName = findViewById<TextView>(R.id.fun_fund_name)
             funFundName.text = schemeName
-            val funCategory=findViewById<TextView>(R.id.fun_category)
+            val funCategory = findViewById<TextView>(R.id.fun_category)
             funCategory.text = category
-            val funFundHouse=findViewById<TextView>(R.id.fun_fund_house)
+            val funFundHouse = findViewById<TextView>(R.id.fun_fund_house)
             funFundHouse.text = fundHouse
-            val funNav=findViewById<TextView>(R.id.fun_nav)
+            val funNav = findViewById<TextView>(R.id.fun_nav)
             funNav.text = nav
 //            Log.d("REST RES", " $priceData")
         }) { error ->
@@ -271,7 +270,7 @@ class FundInfo : AppCompatActivity() {
         val threeMonths = ArrayList<PriceData>()
         val sixMonths = ArrayList<PriceData>()
         val oneYear = ArrayList<PriceData>()
-        val oneWeekVal=ArrayList<Float>()
+        val oneWeekVal = ArrayList<Float>()
         for (i in 0 until 7) {
             oneWeek.add(priceData[i]);
             oneWeekVal.add(priceData[i].price.toFloat())
@@ -297,42 +296,43 @@ class FundInfo : AppCompatActivity() {
         val oneYearBtn = findViewById<TextView>(R.id.oneYear)
 
         // calculate return for one week
-        val oneWeekProfit=priceData.get(0).price.toDouble()-priceData.get(7).price.toDouble()
-        val oneWeekReturn=(oneWeekProfit/oneWeek.get(0).price.toDouble())*100
-        val oneWeekFinal= String.format("%.1f",oneWeekReturn).toDouble()
-        oneWeekBtn.text= "$oneWeekFinal%"
+        val oneWeekProfit = priceData.get(0).price.toDouble() - priceData.get(7).price.toDouble()
+        val oneWeekReturn = (oneWeekProfit / oneWeek.get(0).price.toDouble()) * 100
+        val oneWeekFinal = String.format("%.1f", oneWeekReturn).toDouble()
+        oneWeekBtn.text = "$oneWeekFinal%"
 
 
         // calculate return for one day
-        val oneDayProfit=priceData.get(0).price.toDouble()-priceData.get(1).price.toDouble()
-        val oneDayReturn=(oneDayProfit/priceData.get(0).price.toDouble())*100
-        val oneDayFinal= String.format("%.1f",oneDayReturn).toDouble()
-        oneDayBtn.text="$oneDayFinal%"
+        val oneDayProfit = priceData.get(0).price.toDouble() - priceData.get(1).price.toDouble()
+        val oneDayReturn = (oneDayProfit / priceData.get(0).price.toDouble()) * 100
+        val oneDayFinal = String.format("%.1f", oneDayReturn).toDouble()
+        oneDayBtn.text = "$oneDayFinal%"
 
         // calculate return for one month
-        val oneMonthProfit=priceData.get(0).price.toDouble()-priceData.get(30).price.toDouble()
-        val oneMonthReturn=(oneMonthProfit/priceData.get(0).price.toDouble())*100
-        val oneMonthFinal= String.format("%.1f",oneMonthReturn).toDouble()
-        oneMonthBtn.text="$oneMonthFinal%"
+        val oneMonthProfit = priceData.get(0).price.toDouble() - priceData.get(30).price.toDouble()
+        val oneMonthReturn = (oneMonthProfit / priceData.get(0).price.toDouble()) * 100
+        val oneMonthFinal = String.format("%.1f", oneMonthReturn).toDouble()
+        oneMonthBtn.text = "$oneMonthFinal%"
 
         //calculate return for 3 month
-        val threeMonthProfit=priceData.get(0).price.toDouble()-priceData.get(90).price.toDouble()
-        val threeMonthReturn=(threeMonthProfit/priceData.get(0).price.toDouble())*100
-        val threeMonthFinal= String.format("%.1f",threeMonthReturn).toDouble()
-        threeMonthsBtn.text="$threeMonthFinal%"
+        val threeMonthProfit =
+            priceData.get(0).price.toDouble() - priceData.get(90).price.toDouble()
+        val threeMonthReturn = (threeMonthProfit / priceData.get(0).price.toDouble()) * 100
+        val threeMonthFinal = String.format("%.1f", threeMonthReturn).toDouble()
+        threeMonthsBtn.text = "$threeMonthFinal%"
 
 
         //calculate return for 6 months
-        val sixMonthProfit=priceData.get(0).price.toDouble()-priceData.get(180).price.toDouble()
-        val sixMonthReturn=(sixMonthProfit/priceData.get(0).price.toDouble())*100
-        val sixMonthFinal= String.format("%.1f",sixMonthReturn).toDouble()
-        sixMonthsBtn.text="$sixMonthFinal%"
+        val sixMonthProfit = priceData.get(0).price.toDouble() - priceData.get(180).price.toDouble()
+        val sixMonthReturn = (sixMonthProfit / priceData.get(0).price.toDouble()) * 100
+        val sixMonthFinal = String.format("%.1f", sixMonthReturn).toDouble()
+        sixMonthsBtn.text = "$sixMonthFinal%"
 
         // calculate return for 1year
-        val oneYearProfit=priceData.get(0).price.toDouble()-priceData.get(365).price.toDouble()
-        val oneYearReturn=(oneYearProfit/priceData.get(0).price.toDouble())*100
-        val oneYearFinal=String.format("%.1f",oneYearReturn).toDouble()
-        oneYearBtn.text="$oneYearFinal%"
+        val oneYearProfit = priceData.get(0).price.toDouble() - priceData.get(365).price.toDouble()
+        val oneYearReturn = (oneYearProfit / priceData.get(0).price.toDouble()) * 100
+        val oneYearFinal = String.format("%.1f", oneYearReturn).toDouble()
+        oneYearBtn.text = "$oneYearFinal%"
 
         setTrendColor(oneDayReturn > 0, oneDayBtn)
         setTrendColor(
