@@ -189,7 +189,7 @@ class FundInfo : AppCompatActivity() {
         amount: String,
         units: String,
         fundCode: String,
-        fundName: String
+        fundName: String,
     ) {
         val coroutineScope = CoroutineScope(Dispatchers.IO)
         coroutineScope.launch {
@@ -210,7 +210,7 @@ class FundInfo : AppCompatActivity() {
         amount: String,
         units: String,
         fundCode: String,
-        fundName: String
+        fundName: String,
     ) {
         val database = FirebaseDatabase.getInstance().getReference("Users")
         val email = firebaseAuth.currentUser?.email
