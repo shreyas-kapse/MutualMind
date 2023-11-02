@@ -1,4 +1,4 @@
-# MutualMind
+![add_fund](https://github.com/shreyas-kapse/MutualMind/assets/110439554/6b79f736-0132-4abd-bca6-0d805e6b920c)# MutualMind
 
 ![Platform](https://img.shields.io/badge/Platform%20-Android-blue)
 
@@ -6,7 +6,14 @@
 
 MutualMind is a visually stunning mutual fund tracking and investment management application developed to simplify and optimize the management of mutual fund portfolios. With its beautiful and intuitive user interface created using Figma, MutualMind provides a seamless and delightful user experience. It leverages advanced technologies such as Volley for API requests and Coroutines for efficient task scheduling, ensuring smooth and efficient operation.
 
-![App Screenshots](screenshots.png)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/login.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/sign_up.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home_top_losser.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_2.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_3.jpeg)
+![App Screenshots](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/add_fund.jpeg)
 
 ## Features
 
