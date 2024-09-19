@@ -6,15 +6,6 @@
 
 MutualMind is a visually stunning mutual fund tracking and investment management application developed to simplify and optimize the management of mutual fund portfolios. With its beautiful and intuitive user interface created using Figma, MutualMind provides a seamless and delightful user experience. It leverages advanced technologies such as Volley for API requests and Coroutines for efficient task scheduling, ensuring smooth and efficient operation.
 
-![Login](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/login.jpeg)
-![Sign Up](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/sign_up.jpeg)
-![Home](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home.jpeg)
-![Top Losser](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home_top_losser.jpeg)
-![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information.jpeg)
-![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_2.jpeg)
-![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_3.jpeg)
-![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/add_fund.jpeg)
-
 ## Features
 
 - **Secure Authentication**: MutualMind utilizes Firebase Authentication to provide a secure and convenient login and registration process through Google accounts, ensuring user privacy and data security.
@@ -28,6 +19,15 @@ MutualMind is a visually stunning mutual fund tracking and investment management
 - **Efficient API Requests with Volley**: MutualMind utilizes the Volley library for seamless and efficient API requests, ensuring fast and reliable data retrieval from external sources.
 
 - **Effortless Task Scheduling with Coroutines**: Coroutines are employed to handle asynchronous operations and task scheduling, providing a smooth and responsive user experience.
+
+![Login](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/login.jpeg)
+![Sign Up](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/sign_up.jpeg)
+![Home](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home.jpeg)
+![Top Losser](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/home_top_losser.jpeg)
+![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information.jpeg)
+![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_2.jpeg)
+![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/fund_information_3.jpeg)
+![Fund Information](https://raw.githubusercontent.com/shreyas-kapse/MutualMind/main/Screenshots/add_fund.jpeg)
 
 ## Installation
 
